@@ -92,7 +92,7 @@ class Hilbert
 
   def create_grammar(gen)
     @gen = gen    # required for depth adjustment
-    @distance *= 1/(2**gen) - 1)
+    @distance *= 0.5**(gen - 1)
     @production = @grammar.generate gen
   end
 
