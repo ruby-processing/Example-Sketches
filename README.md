@@ -7,6 +7,11 @@ Many of the vanilla processing example sketches have been translated to ruby-pro
 
     1. [structure][]
     2. [objects][] 
+    3. [arrays][]
+    4. [input][]
+    5. [shape][]
+    6. [image][]
+    7. [control][]
 
 2. [Topics][]
 
@@ -20,7 +25,11 @@ Many of the vanilla processing example sketches have been translated to ruby-pro
 
 [Basic]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/basics
 [structure]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/basics/structure
-[objects]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/basics/structure
+[objects]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/basics/objects
+[arrays]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/basics/arrays
+[control]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/basics/control
+[shape]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/basics/shape
+[input]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/basics/input
 [Topics]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/topics
 [lsystems]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/topics/lsystems
 [shaders]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/topics/shaders
