@@ -16,6 +16,8 @@ Many of the vanilla processing example sketches have been translated to ruby-pro
     2. [lsystems][]
     
 3. [Libraries][]
+    1. [fastmath][]
+    2. [vecmath][]
 
 [Basic]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/basics
 [structure]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/basics/structure
@@ -24,3 +26,5 @@ Many of the vanilla processing example sketches have been translated to ruby-pro
 [lsystems]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/topics/lsystems
 [shaders]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/topics/shaders
 [Libraries]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/libraries
+[fastmath]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/libraries/fastmath
+[vecmath]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/libraries/vecmath
