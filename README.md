@@ -5,10 +5,16 @@ Many of the vanilla processing example sketches have been translated to ruby-pro
 
 1. [Basic][]
 
+    1.[structure][]
+    
+    2.[objects][] 
+
 2. [Topics][]
 
 3. [Libraries][]
 
 [Basic]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/basics
+[structure]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/basics/structure
+[objects]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/basics/structure
 [Topics]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/topics
 [Libraries]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/libraries
