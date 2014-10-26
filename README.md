@@ -21,6 +21,6 @@ Many of the vanilla processing example sketches have been translated to ruby-pro
 [structure]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/basics/structure
 [objects]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/basics/structure
 [Topics]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/topics
-[Topics]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/topics/lsystems
-[Topics]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/topics/shaders
+[lsystems]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/topics/lsystems
+[shaders]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/topics/shaders
 [Libraries]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/libraries
