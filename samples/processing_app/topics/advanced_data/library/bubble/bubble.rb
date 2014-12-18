@@ -1,5 +1,4 @@
 # The bubble library, include BubbleStruct
-
 class Bubble
   include Processing::Proxy
 
@@ -16,8 +15,8 @@ class Bubble
 
   # Checking if mouse is over the Bubble
   def rollover(px, py)
-    d = dist(px,py,x,y)
-    @over = (d < diameter/2)? true : false
+    d = dist(px, py, x, y)
+    @over = (d < diameter / 2.0) ? true : false
   end
 
   # Display the Bubble
@@ -26,15 +25,21 @@ class Bubble
     stroke_weight(2)
     noFill
     ellipse(x, y, diameter, diameter)
-    if (over)
-      fill(0)
-      text_align(CENTER)
-      text(name, x, y + diameter / 2 + 20)
-    end
+    return unless over
+    fill(0)
+    text_align(CENTER)
+    text(name, x, y + diameter / 2 + 20)
+  end
+
+  def to_a
+    [x, y, diameter, name]
   end
 
   def to_hash
-    {'position' => {'x' => x, 'y' => y}, 'diameter' => diameter, 'label' => name}
+    { 'position' => { 'x' => x, 'y' => y },
+      'diameter' => diameter,
+      'label' => name
+    }
   end
 
   def to_struct
