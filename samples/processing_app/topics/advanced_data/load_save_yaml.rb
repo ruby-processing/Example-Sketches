@@ -4,11 +4,13 @@
 # appropriately yaml.
 # by Martin Prout after Dan Shiffman
 # ###################################
+require 'forwardable'
+require 'psych'
 load_library :bubble
 
 attr_reader :bubble_data
 
-def setup()
+def setup
   size(640, 360)
   # load data from file
   @bubble_data = BubbleData.new 'bubbles'
@@ -25,63 +27,61 @@ def mouse_pressed
   @bubble_data.create_new_bubble(mouse_x, mouse_y)
 end
 
-class BubbleData 
+# Bubble class can create and display bubble data from a yaml file
+class BubbleData
+  extend Forwardable
+  def_delegators(:@bubbles, :each, :<<, :size, :shift, :clear)
   include Enumerable
-  
+
   MAX_BUBBLE = 10
-  
+
   attr_reader :key, :path, :bubbles
-  def initialize key
+  def initialize(key)
     @key = key
     @bubbles = []
   end
-  
-  def each &block
-    bubbles.each &block
-  end  
-  
-  def create_new_bubble x, y
-    self.add Bubble.new(x, y, rand(40..80), 'new label')    
-    save_data 
+
+  def create_new_bubble(x, y)
+    add Bubble.new(x, y, rand(40..80), 'new label')
+    save_data
     load_data path
   end
-  
-  def display x, y
-    self.each do |bubble|
+
+  def display(x, y)
+    each do |bubble|
       bubble.display
       bubble.rollover(x, y)
     end
   end
-  
+
   # @param path to yaml file
-  
-  def load_data path
+  def load_data(path)
     @path = path
     yaml = Psych.load_file('data/data.yml')
     data = yaml[key]
-    bubbles.clear
+    clear
     # iterate the bubble_data array, and create an array of bubbles
     data.each do |point|
-      self.add Bubble.new(
+      add Bubble.new(
         point['position']['x'],
         point['position']['y'],
         point['diameter'],
         point['label'])
     end
   end
-  
-  
-  def add bubble
+
+  def add(bubble)
     bubbles << bubble
     bubbles.shift if bubbles.size > MAX_BUBBLE
-  end 
-  
-  private   
-  
+  end
+
+  private
+
   def save_data
-    hash = { key => self.map{ |point| point.to_hash } }
-    yaml = hash.to_yaml
-    # overwite existing 'data.yaml' 
-    open('data/data.yml', 'w:UTF-8') { |f| f.write(yaml) }
-  end  
+    hash = { key => map(&:to_hash) }
+    # overwite existing 'data.yaml'
+    open('data/data.yml', 'w:UTF-8') do |f|
+      f.write(hash.to_yaml)
+    end
+  end
 end
