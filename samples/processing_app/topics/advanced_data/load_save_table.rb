@@ -28,10 +28,7 @@ end
 def draw
   background(255)
   # Display all bubbles
-  bubbles.each do |b|
-    b.display
-    b.rollover(mouse_x, mouse_y)
-  end
+  bubbles.run
   text_align(LEFT)
   fill(0)
   text('Click to add bubbles.', 10, height - 10)
@@ -40,7 +37,7 @@ end
 def load_data
   # Load CSV file into an Array of Hash objects
   # headers: option indicates the file has a header row
-  @bubbles = []
+  @bubbles = BubbleData.new
   CSV.foreach('data/data.csv', headers: true) do |row|
     x = row['x'].to_f
     y = row['y'].to_f
@@ -64,4 +61,23 @@ def mouse_pressed
   end
   # And reloading it
   load_data
+end
+
+# A run module
+module Runnable
+  def run
+    each(&:display)
+    each { |item| item.rollover(mouse_x, mouse_y) }
+  end
+end
+
+# Enumerable class holds bubble data
+class BubbleData
+  extend Forwardable
+  def_delegators(:@bubbles, :each, :<<, :size, :shift)
+  include Enumerable, Runnable
+
+  def initialize
+    @bubbles = []
+  end
 end
