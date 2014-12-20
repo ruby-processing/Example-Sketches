@@ -26,7 +26,6 @@ attr_accessor :words
 
 def setup
   size(640, 360)
-
   # Create the HashMap
   @words = {}
   # Load two files
@@ -49,11 +48,11 @@ end
 
 # Load a file
 def load_file(filename)
-  tokens = File.open(data_path(filename), 'r'){ |file| file.read.scan(/[\w'-]+/)}
+  tokens = File.open(data_path(filename), 'r') { |file| file.read.scan(/[\w'-]+/) }
   tokens.each do |s|
     s = s.downcase
     # Is the word in the HashMap
-    if (words.key?(s))
+    if words.key?(s)
       # Get the word object and increase the count
       # We access objects from a Hash via its key, the String
       w = words[s]
@@ -77,4 +76,3 @@ def load_file(filename)
     end
   end
 end
-

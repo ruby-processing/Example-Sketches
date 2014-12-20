@@ -11,7 +11,7 @@ attr_reader :links, :url
 
 def setup
   size(360, 480)
-  @url = 'http://processing.org'
+  @url = 'https://processing.org'
   # Load the links
   @links = load_links(url)
   links.uniq! # get rid of the duplicates

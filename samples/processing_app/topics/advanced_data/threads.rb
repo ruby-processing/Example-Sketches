@@ -15,21 +15,20 @@
 # This sketch will load data from all of these URLs in a separate thread
 
 URLS = [
-'http://processing.org',
-'http://www.processing.org/exhibition/',
-'http://www.processing.org/reference/',
-'http://www.processing.org/reference/libraries',
-'http://www.processing.org/reference/tools',
-'http://www.processing.org/reference/environment',
-'http://www.processing.org/learning/',
-'http://www.processing.org/learning/basics/',
-'http://www.processing.org/learning/topics/',
-'http://www.processing.org/learning/gettingstarted/',
-'http://www.processing.org/download/',
-'http://www.processing.org/shop/',
-'http://www.processing.org/about/'
+  'https://processing.org',
+  'https://www.processing.org/exhibition/',
+  'https://www.processing.org/reference/',
+  'https://www.processing.org/reference/libraries',
+  'https://www.processing.org/reference/tools',
+  'https://www.processing.org/reference/environment',
+  'https://www.processing.org/learning/',
+  'https://www.processing.org/learning/basics/',
+  'https://www.processing.org/learning/topics/',
+  'https://www.processing.org/learning/gettingstarted/',
+  'https://www.processing.org/download/',
+  'https://www.processing.org/shop/',
+  'https://www.processing.org/about/'
 ]
-
 
 attr_reader :finished, :percent
 
@@ -42,34 +41,33 @@ end
 
 def draw
   background(0)
-
-  # If we're not finished draw a 'loading bar'
-  # This is so that we can see the progress of the thread
-  # This would not be necessary in a sketch where you wanted to load data in the background
-  # and hide this from the user, allowing the draw loop to simply continue
-  if (!finished)
+  # If we're not finished draw a 'loading bar', so that we can see the progress
+  # of the thread. This would not be necessary in a sketch where you wanted to
+  # load data in the background and hide this from the user.
+  if !finished
     stroke(255)
     no_fill
-    rect(width/2-150, height/2, 300, 10)
+    rect(width / 2 - 150, height / 2, 300, 10)
     fill(255)
     # The size of the rectangle is mapped to the percentage completed
     w = map(percent, 0, 1, 0, 300)
-    rect(width/2-150, height/2, w, 10)
+    rect(width / 2 - 150, height / 2, w, 10)
     text_size(16)
     text_align(CENTER)
     fill(255)
-    text('Loading', width/2, height/2+30)
+    text('Loading', width / 2, height / 2 + 30)
   else
     # The thread is complete!
     text_align(CENTER)
     text_size(24)
     fill(255)
-    text('Finished loading. Click the mouse to load again.', width/2, height/2)
+    message = 'Finished loading. Click the mouse to load again.'
+    text(message, width / 2, height / 2)
   end
 end
 
 def load_data
-  Thread.new {
+  Thread.new do
     # The thread is not completed
     @finished = false
     @percent = 0
@@ -88,9 +86,9 @@ def load_data
       @percent = i.to_f / URLS.length
     end
     @finished = true
-  }
+  end
 end
 
 def mouse_pressed   # guard against calling load_data when running
-  load_data unless !finished
+  load_data if finished
 end

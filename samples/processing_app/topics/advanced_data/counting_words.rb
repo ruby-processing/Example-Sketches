@@ -1,8 +1,8 @@
+# A helper to keep track of word frequency.
 class Word
-  # A helper to keep track of word frequency.
   attr_accessor :word
   attr_reader :count
-  def initialize word
+  def initialize(word)
     @word = word
     @count = 1
   end
@@ -36,13 +36,12 @@ end
 def draw
   background 51
   fill 255
-  s = (tokens[counter] == 'I')? tokens[counter] : tokens[counter].downcase
+  s = (tokens[counter] == 'I') ? tokens[counter] : tokens[counter].downcase
   @counter = (counter + 1) % tokens.length
-  if (concordance.has_key?(s))
+  if concordance.key? s
     # Get the word object and increase the count
     # We access objects from a Hash via its key, the String
-    w = concordance[s]
-    w.increment    # increment word count
+    concordance[s].increment    # increment word count
   else
     # Otherwise make a new Word instance and add it to
     # the Hash using the word String as the key
@@ -56,7 +55,7 @@ def draw
   # Look at each word
   concordance.values.each do |w|
     # Only display words that appear 3 times
-    if (w.count > 3)  # access word count
+    if w.count > 3  # access word count
       # The size is the count
       fsize = constrain(w.count, 0, 100)
       text_size(fsize)
@@ -64,15 +63,14 @@ def draw
       # Move along the x-axis
       x += text_width(w.word) + 1
     end
-
     # If x gets to the end, move y
     # If y == 0 we are done
-    if (y == 0)
+    if y == 0
       no_loop
     else
-      if (x > width)
+      if x > width
         x = 0
-        y = (y < 0)? 0 : y - 100
+        y = (y < 0) ? 0 : y - 100
       end
     end
   end
