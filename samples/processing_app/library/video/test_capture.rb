@@ -11,7 +11,7 @@ def setup
   p 'Matching cameras available:'
   size_pattern = Regexp.new(format('%dx%d', width, height))
   select = cameras.grep size_pattern # filter available cameras
-  select.map { |cam| p cam }
+  select.uniq.map { |cam| p cam.strip }
   fail 'There are no matching cameras.' if (select.length == 0)
   start_capture(select[0])
 end
