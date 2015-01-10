@@ -43,9 +43,9 @@ Many of the vanilla processing example sketches have been translated to ruby-pro
 [lsystems]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/topics/lsystems
 [advanced data]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/topics/advanced_data
 [shaders]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/topics/shaders
-[Libraries]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/libraries
-[fastmath]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/libraries/fastmath
-[vecmath]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/libraries/vecmath
-[video]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/libraries/video
+[Libraries]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/library
+[fastmath]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/library/fastmath
+[vecmath]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/library/vecmath
+[video]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/library/video
 [control-panel]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/contributed/jwishy.rb
 [JBox2D]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/external_library/ruby_gem/jbox2d
