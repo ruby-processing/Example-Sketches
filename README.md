@@ -25,6 +25,7 @@ Many of the vanilla processing example sketches have been translated to ruby-pro
     1. [fastmath][]
     2. [vecmath][]
     3. [control-panel][]
+    4. [video][]
 
 4. [JBox2D][]
 
@@ -45,5 +46,6 @@ Many of the vanilla processing example sketches have been translated to ruby-pro
 [Libraries]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/libraries
 [fastmath]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/libraries/fastmath
 [vecmath]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/libraries/vecmath
+[video]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/libraries/video
 [control-panel]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/contributed/jwishy.rb
 [JBox2D]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/external_library/ruby_gem/jbox2d
