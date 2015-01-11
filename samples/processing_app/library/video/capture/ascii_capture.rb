@@ -3,7 +3,7 @@
 # by Ben Fry, translated to ruby-processing by Martin Prout.
 #
 #
-# Text characters have been used to represent images since the earliest computers.
+# Text chars have been used to represent images since the earliest computers.
 # This sketch is a simple homage that re-interprets live video as ASCII text.
 # See the key_pressed function for more options, like changing the font size.
 #
@@ -17,12 +17,7 @@ LETTER_STRING = %q{ .`-_':,;^=+/\"|)\\<>)iv%xclrs{*}I?!][1taeo7zjLunT#JCwfy325Fp
 LETTER_ORDER = LETTER_STRING.scan(/./)
 def setup
   size(640, 480)
-  # This the default video input, see the GettingStartedCapture
-  # example if it creates an error
-  @video = Capture.new(self, 160, 120)
-  # @cheat_screen = true
-  # Start capturing the images from the camera
-  video.start
+  init_video
   @font_size = 1.5
   @font = load_font(data_path('UniversLTStd-Light-48.vlw'))
   # for the 256 levels of brightness, distribute the letters across
@@ -32,6 +27,15 @@ def setup
   end
   # current brightness for each point
   @bright = Array.new(video.width * video.height, 128)
+end
+
+def init_video
+  # This the default video input, see the test_capture
+  # example if it creates an error
+  @video = Capture.new(self, 160, 120)
+  # Start capturing the images from the camera
+  video.start
+  @cheat_screen = false
 end
 
 def capture_event(c)
@@ -77,12 +81,16 @@ def draw
     pop_matrix
   end
   pop_matrix
-  if cheat_screen
-    # image(video, 0, height - video.height)
-    # set() is faster than image() when drawing untransformed images
-    set(0, height, video)
-  end
+  # image(video, 0, height - video.height)
+  # set() is faster than image() when drawing untransformed images
+  set(0, height - video.height, video) if cheat_screen
 end
+
+MESSAGE = <<-EOS
+Controls are:
+  g to save_frame, f & F to set font size
+  c to toggle cheat screen display
+EOS
 
 #
 # Handle key presses:
@@ -92,15 +100,11 @@ end
 #
 def key_pressed
   case key
-  when 'g'
-    save_frame
-  when 'c'
-    @cheat_screen = !cheat_screen
-  when 'f'
-    @font_size *= 1.1
-  when 'F'
-    @font_size *= 0.9
+  when 'g' then save_frame
+  when 'c' then @cheat_screen = !cheat_screen
+  when 'f' then @font_size *= 1.1
+  when 'F' then @font_size *= 0.9
   else
-    p 'Controls are g to save_frame, f & F to set font size'
+    warn MESSAGE
   end
 end
