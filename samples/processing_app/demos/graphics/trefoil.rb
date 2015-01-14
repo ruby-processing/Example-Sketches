@@ -1,7 +1,7 @@
 # Trefoil, by Andres Colubri
 # A parametric surface is textured procedurally
 # by drawing on an offscreen PGraphics surface.
-#
+# See also http://chimera.labs.oreilly.com/books/1234000001814/index.html
 # Features (Vec3D).to_normal(renderer) and (Vec3D).to_vertex_uv(renderer, u, v)
 # see line 62 for inititialization of renderer where obj is an instance of PShape
 # renderer = ShapeRender.new(obj)
