@@ -1,7 +1,7 @@
 # Trefoil, by Andres Colubri
 # A parametric surface is textured procedurally
 # by drawing on an offscreen PGraphics surface.
-#
+# 
 # Features (Vec3D).to_normal(renderer) and (Vec3D).to_vertex_uv(renderer, u, v)
 # see line 62 for inititialization of renderer where obj is an instance of PShape
 # renderer = ShapeRender.new(obj)
@@ -49,7 +49,7 @@ end
 # Code to draw a trefoil knot surface, with normals and texture 
 # coordinates. Makes of the Vec3D Render interface (uses ShapeRender here).
 # Adapted from the parametric equations example by Philip Rideout:
-# http://iphone-3d-programming.labs.oreilly.com/ch03.html
+# See http://chimera.labs.oreilly.com/books/1234000001814/index.html
 
 # This function draws a trefoil knot surface as a triangle mesh derived
 # from its parametric equation.
