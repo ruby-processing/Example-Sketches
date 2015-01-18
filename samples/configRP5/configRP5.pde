@@ -16,7 +16,7 @@ int selectedColor;
 boolean acceptOver = false;
 boolean noJruby = false;
 boolean selected = false;
-boolean no_jruby = false;
+String jruby = "true";
 // The JSON object
 JSONObject json;
 
@@ -72,7 +72,7 @@ void writeRoot() {
   rectColor = selectedColor;
   rectHighlight = selectedColor;
   json.setString("PROCESSING_ROOT", processingRoot);
-  json.setBoolean("JRUBY", no_jruby);
+  json.setString("JRUBY", jruby);
   json.setInt("X_OFF", floor(displayWidth * 0.1));
   json.setInt("Y_OFF", floor(displayHeight * 0.1));
 
@@ -116,7 +116,7 @@ void mouseClicked() {
   if (noJruby) {
     rectColor2 = selectedColor;
     rectHighlight2 = selectedColor;
-    no_jruby = true;
+    jruby = "false";
   }
 }
 
