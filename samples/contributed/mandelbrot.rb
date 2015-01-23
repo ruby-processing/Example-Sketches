@@ -57,7 +57,6 @@ class Complex
   def square
     r = real * real - imag * imag
     i = 2 * real * imag
-
     @real = r
     @imag = i
   end
@@ -74,6 +73,6 @@ class Complex
   end
 
   def to_s
-    "#{real} + #{imag}i"
+    format("(%d+%di)", real, imag)
   end
 end
