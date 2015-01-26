@@ -11,7 +11,6 @@ attr_reader :sound_file
 
 def setup
   size 640, 360
-  background 255
   no_stroke
   # Load a soundfile
   @sound_file = SoundFile.new(self, 'vibraphon.aiff')
@@ -21,10 +20,11 @@ def setup
 end
 
 def draw
+  background 40, 1
   red = map1d(mouse_x, (0..width), (30..255))
   green = map1d(mouse_y, (height..0), (30..255))
-  fill(red, green, 0, 100)
-  ellipse(mouse_x, mouse_y, 10, 10)
+  fill(red, green, 0)
+  ellipse(mouse_x, mouse_y, 30, 30)
   manipulate_sound
 end
 
