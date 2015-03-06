@@ -7,7 +7,7 @@ Here are some ways *you* can contribute:
 * by suggesting/implementing new features ( _export using warbler would be cool, as would live using pry_ )
 * by writing or editing documentation ( _expert Windows users could help write install instructions_ )
 * by contributing examples ( _show your creativity, or translate someone elses masterpiece, you could learn a lot_ )
-* to this and get recognized for your contribution clone this repo, and submit a pull request
+  to do this, and to get recognized for your contribution:- clone this repo, and submit a pull request
 * by refactoring examples to be more rubyfied
 * by closing [issues][]
 * by proselytizing ruby-processing, we need more champions
