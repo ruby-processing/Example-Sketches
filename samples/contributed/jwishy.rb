@@ -92,4 +92,3 @@ end
 def mouse_pressed
   @hide = false if hide
 end
-

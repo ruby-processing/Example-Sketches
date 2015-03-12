@@ -14,7 +14,7 @@ MULTI_THREADED  = true
 attr_reader :cells
 
 def setup
-  size(500, 500, P3D)
+  size(500, 500, P2D)
   stroke(0, 0, 0, 25)
   initialize_cells
   start_cell_updates if MULTI_THREADED
@@ -31,12 +31,12 @@ def initialize_cells
 end
 
 def start_cell_updates
-  Thread.new { Kernel.loop { cells.each { |cell| cell.update } } }
+  Thread.new { Kernel.loop { cells.each(&:update) } }
 end
 
 def draw
   background 255
-  cells.each { |cell| cell.sense } if started?
+  cells.each(&:sense) if started?
 end
 
 def started?
@@ -44,19 +44,17 @@ def started?
 end
 
 def mouse_pressed
-  cells.each { |cell| cell.reset }
+  cells.each(&:reset)
 end
 
 ##
 # The cell responds to mouse movement
 ##
-
 class Cell
   attr_reader :x, :y, :spin, :angle
   def initialize(x, y)
     @x, @y  = x, y
-    @spin   = 0
-    @angle  = 0
+    reset
   end
 
   def reset

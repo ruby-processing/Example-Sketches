@@ -31,20 +31,19 @@ def setup
   background(0)
 end
 
-def draw    
-  if add_points 
+def draw
+  if add_points
     @nbr_points += 1
     @nbr_points = [nbr_points, KMAX_POINTS].min
     init_sphere(nbr_points)
   end
-  
-  background 0            
+
+  background 0
   lights
   ambient(200, 10, 10)
   ambient_light(150, 150, 150)
-  render_globe   
+  render_globe
 end
-
 
 ###########################################
 # For Fibonacci Sphere
@@ -52,9 +51,9 @@ end
 
 def render_globe
   push_matrix
-  (0..[nbr_points, pts.length].min).each do |i|    
-    lat = pts[i].lat 
-    lon = pts[i].lon    
+  (0..[nbr_points, pts.length].min).each do |i|
+    lat = pts[i].lat
+    lon = pts[i].lon
     push_matrix
     rotate_y(lon)
     rotate_z(-lat)
@@ -63,7 +62,7 @@ def render_globe
     box(4, 7, 7)
     pop_matrix
   end
-  pop_matrix  
+  pop_matrix
 end
 
 def mouse_clicked
@@ -72,12 +71,12 @@ end
 
 SpherePoint = Struct.new(:lat, :lon)
 
-def init_sphere(num)  
-  (0..num).each do |i| 
+def init_sphere(num)
+  (0..num).each do |i|
     lon = GA * i
     lon /= TAU
     lon -= lon.floor
-    lon *= TAU    
+    lon *= TAU
     lon -= TAU if lon > PI
     # Convert dome height (which is proportional to surface area) to latitude
     # lat = asin(-1 + 2 * i / num.to_f)
