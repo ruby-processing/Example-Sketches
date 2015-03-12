@@ -116,10 +116,10 @@ end
 def key_pressed
   case key
   when '1', '2'
-    @current_color_map = key.to_i % 2 #images.size
+    @current_color_map = key.to_i % 2 # images.size for more than two
     displace.set('colorMap', images[current_color_map]) 
   else
-    puts 'key pressed: #{key}'
+    puts format('key pressed: %s', key)
   end # cycle through colorMaps (set variable and set colorMap in PShader)
 end
 
