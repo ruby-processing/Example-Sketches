@@ -1,6 +1,6 @@
 # game_of_life.rb featuring MDArray in ruby-processing
-# A Processing implementation of Game of Life
-# By Joan Soler-Adillon
+# A ruby-processing implementation of Game of Life
+# By Martin Prout after a processing version by Joan Soler-Adillon
 #
 # Press SPACE BAR to pause and change the cell's values with the mouse
 # On pause, click to activate/deactivate cells
