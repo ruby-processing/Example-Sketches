@@ -9,7 +9,6 @@
 # with a 'one_of_each' method
 
 load_library :vecmath
-import 'vecmath'
 attr_reader :drawing_mode, :points, :rot_x, :rot_y, :vertices
 
 def setup

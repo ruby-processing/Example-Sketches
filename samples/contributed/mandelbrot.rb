@@ -1,6 +1,6 @@
 # Mandelbrot Set example
 # by Jordan Scales (http://jordanscales.com)
-# Modified to use map1d (instead of map), and somewhat 
+# Modified to use map1d (instead of map), and somewhat
 # optimized (update_pixels instead of set, and hypot for abs)
 # default size 900x600
 # no need to loop
@@ -15,7 +15,7 @@ end
 def draw
   (0...900).each do |x|
     (0...600).each do |y|
-      c = Complex.new(map1d(x, (0...900), (-3..1.5)), map1d(y, (0...600), (-1.5..1.5)))  
+      c = Complex.new(map1d(x, (0...900), (-3..1.5)), map1d(y, (0...600), (-1.5..1.5)))
       # mandel will return 0 to 20 (20 is strong)
       #   map this to 0, 255 (and flip it)
       pixels[x + y * 900] = color(255 - map1d(mandel(c, 20), (0..20), (0..255)).to_i)
@@ -29,7 +29,7 @@ end
 def mandel(z, max = 10)
   score = 0
   c = z.clone
-  while score < max do
+  while score < max
     # z = z^2 + c
     z.square
     z.add c
@@ -40,12 +40,11 @@ def mandel(z, max = 10)
 end
 
 # rolled my own Complex class
-#   stripped of all functionality, except for what I needed (abs, square, add, to_s)
-#   
-#   Using this class, runs in ~12.5s on my MacBook Air
-#     compared to ~22s using ruby's Complex struct
+# including only the functionality I need (abs, square, add, to_s)
+#
+# Using this class, runs in ~12.5s on my MacBook Air
+# compared to ~22s using ruby's Complex struct
 class Complex
-
   attr_accessor :real, :imag
 
   def initialize(real, imag)
@@ -73,6 +72,6 @@ class Complex
   end
 
   def to_s
-    format("(%d+%di)", real, imag)
+    format('(%d+%di)', real, imag)
   end
 end

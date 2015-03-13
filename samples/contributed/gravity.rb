@@ -5,7 +5,7 @@ attr_reader :particles, :grabbed
 def setup
   size 600, 500
   @particles  = []
-  @grabbed    = nil  
+  @grabbed    = nil
   background 0
   smooth 4
   stroke_weight 4
@@ -17,7 +17,7 @@ def draw
   no_stroke
   fill 0, 60
   rect 0, 0, width, height
-  particles.each { |p| p.collect_force; p.move; p.render }
+  particles.each(&:run)
 end
 
 def mouse_pressed
@@ -35,9 +35,9 @@ def particle_grab
 end
 
 class Particle
-  GRAVITY = 1.0  
+  GRAVITY = 1.0
   attr_reader :x0, :y0, :x1, :y1, :diameter, :mass_amount
-  
+
   def initialize(x, y, mass)
     @x0, @y0, @x1, @y1  = x, y, x, y
     @x_speed, @y_speed  = 0, 0
@@ -45,7 +45,7 @@ class Particle
     @mass_amount        = mass
     @diameter           = sqrt(mass_amount) * 20
   end
-  
+
   def collect_force
     @x_accel, @y_accel = 0, 0
     @min_dist = 1000
@@ -61,23 +61,29 @@ class Particle
       end
     end
   end
-  
+
   def move
     @x_speed, @y_speed = 0, 0 if grabbed?
     @x_speed += @x_accel
     @y_speed += @y_accel
     @x1, @y1 = x0 + @x_speed, y0 + @y_speed
   end
-  
+
   def grabbed?
     $app.grabbed == self
   end
-  
+
+  def run
+    collect_force
+    move
+    render
+  end
+
   def render
     no_stroke
     grabbed? ? render_grabbed : render_free
   end
-  
+
   def render_free
     charge_col  = 1000.0 / @min_dist / 50.0
     tot_col_1   = 100 + charge_col * 6
@@ -90,7 +96,7 @@ class Particle
     ellipse x1, y1, diameter, diameter
     @x0, @y0 = x1, y1
   end
-  
+
   def render_grabbed
     fill 150, 150, 255, 100
     ellipse mouse_x, mouse_y, diameter + 8, diameter + 8
@@ -99,8 +105,8 @@ class Particle
     ellipse mouse_x, mouse_y, diameter, diameter
     @x0, @y0 = mouse_x, mouse_y
   end
-  
+
   def angle_of(x1, y1, x2, y2)
     Math::PI - atan2(y1 - y2, x1 - x2)
-  end  
+  end
 end

@@ -1,7 +1,6 @@
 ###
 # Polyhedrons after sketch by Chinchbug on openprocessing.org
 ###
-
 Vert = Struct.new(:x, :y, :z) do
   def dist_sq(v)
     (x - v.x) * (x - v.x) + (y - v.y) * (y - v.y) + (z - v.z) * (z - v.z)
@@ -16,7 +15,7 @@ PHI = (1 + sqrt(5)) / 2
 PHI_SQ = PHI * PHI
 PHI_CU = PHI * PHI * PHI
 ROOT2 = sqrt(2)
-TYPE = "Type Archimedian\nFaces: %d " 
+TYPE = "Type Archimedian\nFaces: "
 
 attr_reader :verts, :curr_id, :scayl, :ang, :spd, :name, :notes, :off_x, :off_y
 attr_reader :off_z, :len_edge
@@ -164,46 +163,46 @@ def create_poly(id)
     @scayl = 46
   when 6
     @name = 'Cuboctahedron:'
-    @notes = "#{TYPE}triangles, 6 squares\nVertices 12\nEdges 24" % 8
+    @notes = format("%s %d triangles, 6 squares\nVertices 12\nEdges 24", TYPE, 8)
     permutations(1, 0, 1)
     @len_edge = ROOT2
     @scayl = 170
   when 7
     @name = 'Truncated Cube:'
-    @notes = "#{TYPE}triangles, 6 octogons\nVertices 24\nEdges 36" % 8
+    @notes = format("%s %d triangles, 6 octogons\nVertices 24\nEdges 36", TYPE, 8)
     permutations(ROOT2 - 1, 1, 1)
     @len_edge = 2 * (ROOT2 - 1)
     @scayl = 155
   when 8
     @name = 'Truncated Octahedron:'
-    @notes = "#{TYPE}squares, 8 hexagons\nVertices 24\nEdges 36" % 6
+    @notes = format("%s %d squares, 8 hexagons\nVertices 24\nEdges 36", TYPE, 6)
     permutations(0, 1, 2)
     permutations(2, 1, 0)
     @len_edge = ROOT2
     @scayl = 100
   when 9
     @name = 'Rhombicuboctahedron:'
-    @notes = "#{TYPE}triangles, 18 squares\nVertices 24\nEdges 48" % 8
+    @notes = format("%s %d triangles, 18 squares\nVertices 24\nEdges 48", TYPE, 8)
     permutations(ROOT2 + 1, 1, 1)
     @len_edge = 2
     @scayl = 80
   when 10
     @name = 'Truncated Cuboctahedron:'
-    @notes = "#{TYPE}squares, 8 hexagons, 6 octogons\nVertices 48\nEdges 72" % 12
+    @notes = format("%s %d squares, 8 hexagons, 6 octogons\nVertices 48\nEdges 72", TYPE, 12)
     permutations(ROOT2 + 1, 2 * ROOT2 + 1, 1)
     permutations(ROOT2 + 1, 1, 2 * ROOT2 + 1)
     @len_edge = 2
     @scayl = 50
   when 11
     @name = 'Icosidodecahedron:'
-    @notes = "#{TYPE}triangles, 12 pentagons\nVertices 30\nEdges 60" % 20
+    @notes = format("%s %d triangles, 12 pentagons\nVertices 30\nEdges 60", TYPE, 20)
     permutations(0, 0, 2 * PHI)
     permutations(1, PHI, PHI_SQ)
     @len_edge = 2
     @scayl = 70
   when 12
     @name = 'Truncated Dodecahedron:'
-    @notes = "#{TYPE}triangles, 12 decagons\nVertices 60\nEdges 90" % 20
+    @notes = format("%s %d triangles, 12 decagons\nVertices 60\nEdges 90", TYPE, 20)
     permutations(0, 1 / PHI, PHI + 2)
     permutations(1 / PHI, PHI, 2 * PHI)
     permutations(PHI, 2, PHI_SQ)
@@ -211,7 +210,7 @@ def create_poly(id)
     @scayl = 60
   when 13
     @name = 'Truncated Icosahedron:'
-    @notes = "#{TYPE}pentagons, 20 hexagons\nVertices 60\nEdges 90" % 12
+    @notes = format("%s %d pentagons, 20 hexagons\nVertices 60\nEdges 90", TYPE, 12)
     permutations(0, 1, 3 * PHI)
     permutations(2, 2 * PHI + 1, PHI)
     permutations(1, PHI + 2, 2 * PHI)
@@ -219,7 +218,7 @@ def create_poly(id)
     @scayl = 45
   when 14
     @name = 'Small Rhombicosidodecahedron:'
-    @notes = "#{TYPE}triangles, 30 squares, 12 pentagons\nVertices 60\nEdges 120" %20
+    @notes = format("%s %d triangles, 30 squares, 12 pentagons\nVertices 60\nEdges 120", TYPE, 20)
     permutations(1, 1, PHI_CU)
     permutations(PHI_SQ, PHI, 2 * PHI)
     permutations(PHI + 2, 0, PHI_SQ)
@@ -227,7 +226,7 @@ def create_poly(id)
     @scayl = 50
   when 15
     @name = 'Great Rhombicosidodecahedron:'
-    @notes = "#{TYPE}squares, 20 hexagons, 12 decagons\nVertices 120\nEdges 180" %30
+    @notes = format("%s %d squares, 20 hexagons, 12 decagons\nVertices 120\nEdges 180", TYPE, 30)
     permutations(1 / PHI, 1 / PHI, PHI + 3)
     permutations(2 / PHI, PHI, 2 * PHI + 1)
     permutations(1 / PHI, PHI_SQ, 3 * PHI - 1)
