@@ -1,13 +1,13 @@
 # The Fern Fractal
 # by Luis Correia
 
-attr_reader :boundary
+attr_reader :bnds
 
 def setup
   size 500, 500
-  @boundary = Boundary.new(0, width )
+  @bnds = Boundary.new(0, width)
   no_loop
-  puts "Be patient. This takes about 10 seconds to render."
+  puts 'Be patient. This takes about 10 seconds to render.'
 end
 
 def draw
@@ -34,18 +34,18 @@ def draw
     end
     i = height - (y * 45).to_i
     j = width / 2 + (x * 45).to_i
-    pixels[i * height + j] += 2_560 if (boundary.include?(i) && boundary.include?(j))
+    pixels[i * height + j] += 2_560 if bnds.include?(i) && bnds.include?(j)
     x0, y0 = x, y
   end
   update_pixels
 end
 
-# Abstract boundary checking to this
+# Abstract bnds checking to this
 # lightweight class
 #
 
 Boundary = Struct.new(:lower, :upper) do
-  def include? x
+  def include?(x)
     (lower...upper).cover? x
   end
 end
