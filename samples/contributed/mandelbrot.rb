@@ -66,12 +66,12 @@ class Complex
     @imag += c.imag
   end
 
-  # computes the magnitude
+  # computes the magnitude (HelperMethods dist is a safer version of Math.hypot)
   def abs
-    hypot(real, imag)
+    dist(real, imag)
   end
 
   def to_s
-    format('(%d+%di)', real, imag)
+    format('(%f+%fi)', real, imag)
   end
 end
