@@ -34,8 +34,8 @@ Many of the vanilla processing example sketches have been translated to ruby-pro
 
 [Learning Processing with Ruby]:https://github.com/ruby-processing/learning-processing-with-ruby
 [Nature of Code Examples in ruby]:https://github.com/ruby-processing/The-Nature-of-Code-Examples-in-Ruby
-[Contributions]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/contributions
-[own]:https://github.com/ruby-processing/CONTRIBUTIONS.md
+[Contributions]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/contributed
+[own]:https://github.com/ruby-processing/Example-Sketches/blob/master/CONTRIBUTING.md
 [Basic]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/basics
 [structure]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/basics/structure
 [objects]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/basics/objects
