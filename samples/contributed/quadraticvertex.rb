@@ -15,20 +15,19 @@ def setup
   size 450, 320
   @hide = false
   control_panel do |c|
-    c.title = "controller"
+    c.title = 'controller'
     c.menu(:detail, %w(4 5 6 7 8 9 10), '7')
     c.button :toggle_debug
     c.button :save_image
     @panel = c
   end
-
   @debug = false
   @save_one = false
   smooth 8
 end
 
 def draw
-  if (!hide)
+  unless hide
     panel.set_visible true
     @hide = true
   end
@@ -47,20 +46,17 @@ def draw
     end
   end
   end_shape(CLOSE)
-
-  if (debug)
+  if debug
     # draw lines between points
     stroke_weight(1)
     no_fill
     stroke(0)
-
     begin_shape
     detail.to_i.times do |i|
       vertex cos_cx(i), sin_cy(i) unless i == 0
       vertex cos_x(i), sin_y(i)
     end
     end_shape CLOSE
-
     # draw points
     stroke_weight 8
     detail.to_i.times do |i|
@@ -70,11 +66,9 @@ def draw
       point cos_cx(i), sin_cy(i)
     end
   end
-
-  if save_one
-    save_frame("images/quadraticvertex-#####.png")
-    @save_one = false
-  end
+  return unless save_one
+  save_frame('images/quadraticvertex-#####.png')
+  @save_one = false
 end
 
 def mouse_pressed
@@ -90,11 +84,11 @@ def sin_y(n)
 end
 
 def cos_cx(n)
-  cos(step_angle * n - (step_angle / 2 )) * cr
+  cos(step_angle * n - (step_angle / 2)) * cr
 end
 
 def sin_cy(n)
-  sin(step_angle * n - (step_angle / 2 )) * cr
+  sin(step_angle * n - (step_angle / 2)) * cr
 end
 
 def toggle_debug
