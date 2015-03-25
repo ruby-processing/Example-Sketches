@@ -1,4 +1,5 @@
-#
+require 'toxiclibs'
+
 # <p>GrayScottImage uses the seedImage() method to use a bitmap as simulation seed.
 # In this demo the image is re-applied every frame and the user can adjust the 
 # F coefficient of the reaction diffusion to produce different patterns emerging
@@ -33,20 +34,12 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-load_libraries 'simutils','toxiclibscore','colorutils'
-
-module Toxi
-  include_package "toxi.sim.grayscott"
-  include_package "toxi.math"
-  include_package "toxi.color"
-end
-
 attr_reader :gs, :tone_map, :img
 
 def setup
-  size 256, 256
-  @gs = Toxi::GrayScott.new width, height, true
-  @img = load_image "ti_yong.png"
+  size(256, 256, P2D)
+  @gs = Simulation::GrayScott.new width, height, true
+  @img = load_image 'ti_yong.png'
   # create a duo-tone gradient map with 256 steps
   # NB: use '::' in place of '.' here for these java constants
   @tone_map = Toxi::ToneMap.new(0,  0.33, Toxi::NamedColor::CRIMSON, Toxi::NamedColor::WHITE, 256)
@@ -59,21 +52,21 @@ def draw
   10.times { @gs.update(1) }
   # read out the V result array
   # and use tone map to render colours
-  gs.v.length.times do |i|
-    pixels[i]=tone_map.getARGBToneFor(gs.v[i])  # NB: don't camel case convert here
+  @gs.v.each_with_index do |v, i|
+    pixels[i] = tone_map.getARGBToneFor(v)  # NB: don't camel case convert here
   end
   update_pixels
 end
 
 def key_pressed
+  control_key = %w(1 2 3 4 5 6 7 8 9)
   case key
-  when '1', '9', '3', '2', '4', '6', '5', '7', '8'
+  when *control_key
     @gs.setF(0.02 + (key.ord - 48) * 0.001)
   when 's'
-    save_frame "toxi.png"
+    save_frame 'toxi.png'
   else
     @gs.reset()
   end
 end
-
 
