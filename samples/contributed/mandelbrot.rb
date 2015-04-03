@@ -68,7 +68,7 @@ class Complex
 
   # computes the magnitude (HelperMethods dist is a safer version of Math.hypot)
   def abs
-    dist(real, imag)
+    dist(0, 0, real, imag)
   end
 
   def to_s
