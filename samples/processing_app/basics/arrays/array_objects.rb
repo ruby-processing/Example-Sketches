@@ -1,6 +1,4 @@
-# * Demonstrates the syntax for creating an array of custom objects. 
-
-
+# Demonstrates the syntax for creating an array of custom objects.
 
 UNIT = 40
 attr_reader :mods
@@ -9,17 +7,17 @@ def setup
   size 640, 360
   wide_count = width / UNIT
   height_count = height / UNIT
-  @mods = []  
+  @mods = []
   wide_count.times do |i|
     height_count.times do |j|
-      mods << CustomObject.new(j * UNIT, i * UNIT, UNIT/2, UNIT/2, rand(0.05..0.8))
+      mods << CustomObject.new(j * UNIT, i * UNIT, UNIT / 2, UNIT / 2, rand(0.05..0.8))
     end
-  end    
+  end
   no_stroke
 end
 
 def draw
-  background 0   
+  background 0
   mods.each do |mod|
     mod.update
     mod.draw
@@ -27,36 +25,31 @@ def draw
 end
 
 # the custom object
-
 class CustomObject
   include Processing::Proxy
-  attr_reader :x, :y, :mx, :my, :size
+  attr_reader :x, :y, :xdir, :ydir, :mx, :my, :size, :speed
   def initialize(mx, my, x, y, speed)
-    @mx, @my      = my, mx                # This is backwards because the Processing example is backwards.
+    @mx, @my      = my, mx  # because the Processing example is backwards.
     @x, @y        = x.to_i, y.to_i
     @xdir, @ydir  = 1, 1
     @speed        = speed
     @size         = UNIT
   end
-  
+
   def update
-    @x += @speed * @xdir
-    unless (0..size).cover? x 
+    @x += speed * xdir
+    unless (0..size).cover? x
       @xdir *= -1
-      @x += @xdir
-      @y += @ydir
+      @x += xdir
+      @y += ydir
     end
-    if @y >= @size || x <= 0
-      @ydir *= -1
-      @y += @ydir
-    end
+    return unless y >= size || x <= 0
+    @ydir *= -1
+    @y += ydir
   end
-  
+
   def draw
     fill(255)
     ellipse(mx + x, my + y, 6, 6)
   end
-  
 end
-
-

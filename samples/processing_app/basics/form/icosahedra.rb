@@ -1,18 +1,19 @@
+require 'forwardable'
 load_libraries :icosahedron, :vecmath
 
 def setup
   size 640, 360, P3D
-  @ico1 = Icosahedron.new 75.0
-  @ico2 = Icosahedron.new 75.0
-  @ico3 = Icosahedron.new 75.0
+  @ico1 = Icosahedron.new self, 75.0
+  @ico2 = Icosahedron.new self, 75.0
+  @ico3 = Icosahedron.new self, 75.0
 end
 
 def draw
   background 0
   lights
-  translate width/2, height/2
+  translate(width / 2, height / 2)
   push_matrix
-  translate -width/3.5, 0
+  translate(-width / 3.5, 0)
   rotate_x frame_count * PI / 185
   rotate_y frame_count * PI / -200
   stroke 170, 0, 0
@@ -27,7 +28,7 @@ def draw
   @ico2.draw
   pop_matrix
   push_matrix
-  translate width/3.5, 0
+  translate(width / 3.5, 0)
   rotate_x frame_count * PI / -200
   rotate_y frame_count * PI / 200
   no_stroke
@@ -35,5 +36,3 @@ def draw
   @ico3.draw
   pop_matrix
 end
-
-

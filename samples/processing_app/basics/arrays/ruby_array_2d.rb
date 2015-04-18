@@ -15,14 +15,12 @@ def setup
     end
   end
   background 0
-  x = 0
-  while x < distances.length
-    y = 0
-    while y < distances[x].length
-      stroke distances[x][y]
+  row = []
+  (0...width).step(2) do |x|
+    row = distances[x]
+    (0...height).step(2) do |y|
+      stroke row[y]
       point x, y
-      y += 2
     end
-    x += 2
   end
 end
