@@ -12,7 +12,7 @@ include B2D
 attr_reader :box2d, :boundaries, :polygons
 
 def setup
-  size(640,360)
+  size(640, 360)
   smooth  
   # Initialize box2d physics and create the world
   @box2d = B2D::Box2DProcessing.new(self)
