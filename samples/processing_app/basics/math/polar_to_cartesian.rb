@@ -4,7 +4,7 @@
 # Convert a polar coordinate (r,theta) to cartesian (x,y):
 # x = r * cos(theta)
 # y = r * sin(theta)
-attr_reader :r, :theta
+attr_reader :r, :theta, :theta_acc
 
 def setup
   size 640, 360
@@ -25,6 +25,6 @@ def draw
   no_stroke
   fill 200
   ellipse x, y, 32, 32
-  @theta_vel += @theta_acc
+  @theta_vel += theta_acc
   @theta += @theta_vel
 end
