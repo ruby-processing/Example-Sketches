@@ -9,17 +9,20 @@ require_relative 'lib/box'
 
 attr_reader :boxes, :boundaries, :box2d
 
+Vect = Struct.new(:x, :y)
+
 def setup
   size(640, 360, P2D)
   @box2d = Box2D.new(self)
   box2d.init_options(gravity: [0, -10])
-  box2d.create_world
-  @boundaries = []
+  box2d.create_world  
   @boxes = []
   box2d.world.set_particle_radius(0.15)
   box2d.world.set_particle_damping(0.2)
-  boundaries << Boundary.new(self, width / 4, height - 5, width / 2 - 50, 10)
-  boundaries << Boundary.new(self, 3 * width / 4, height - 50, width / 2 - 50, 10)
+  @boundaries = [
+    Boundary.new(box2d, Vect.new(width / 4, height - 5), Vect.new(width / 2 - 50, 10)),
+    Boundary.new(box2d, Vect.new(3 * width / 4, height - 50), Vect.new(width / 2 - 50, 10))
+  ]
 end
 
 def mouse_pressed
@@ -38,5 +41,5 @@ def draw
     point(pos.x, pos.y)
   end
   fill(0)
-  text(format('f.p.s %d', frame_rate.to_i), 10, 60)
+  text(format('f.p.s %d', frame_rate), 10, 60)
 end

@@ -1,8 +1,12 @@
 # Basic example of falling rectangles
 require 'pbox2d'
 require_relative 'lib/custom_shape'
+require_relative 'lib/boundary'
+require_relative 'lib/shape_system'
 
 attr_reader :box2d, :boundaries, :system
+
+Vect = Struct.new(:x, :y)
 
 def setup
   size(640, 360)
@@ -10,12 +14,12 @@ def setup
   @box2d = Box2D.new(self)
   box2d.init_options(gravity: [0, -20])
   box2d.create_world
-  @system = ParticleSystem.new
+  @system = ShapeSystem.new self
   @boundaries = [
-    Boundary.new(box2d, width / 4, height - 5, width / 2 - 50, 10, 0),
-    Boundary.new(box2d, 3 * width / 4, height - 50, width / 2 - 50, 10, 0),
-    Boundary.new(box2d, width - 5, height / 2, 10, height, 0),
-    Boundary.new(box2d, 5, height / 2, 10, height, 0)
+    Boundary.new(box2d, Vect.new(width / 4, height - 5), Vect.new(width / 2 - 50, 10)),
+    Boundary.new(box2d, Vect.new(3 * width / 4, height - 50), Vect.new(width / 2 - 50, 10)),
+    Boundary.new(box2d, Vect.new(width - 5, height / 2), Vect.new(10, height)),
+    Boundary.new(box2d, Vect.new(5, height / 2), Vect.new(10, height))
   ]
 end
 
