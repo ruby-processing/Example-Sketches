@@ -1,5 +1,3 @@
-require 'pbox2d'
-
 class CustomShape
   include Processing::Proxy
   # We need to keep track of a Body and a width and height
@@ -15,16 +13,16 @@ class CustomShape
   # This function removes the particle from the box2d world
   def kill_body!
     box2d.destroy_body(body)
-    true
   end
 
   # Is the particle ready for deletion?
-  def done?
+  def done
     # Let's find the screen position of the particle
     pos = box2d.body_coord(body)
     # Is it off the bottom of the screen?
     return false unless pos.y > box2d.height
     kill_body!
+    true
   end
 
   # Drawing the box
@@ -73,63 +71,4 @@ class CustomShape
   end
 end
 
-class Boundary
-  include Processing::Proxy
-  attr_reader :box2d, :b, :x, :y, :w, :h
-  def initialize(b2d, x, y, w, h, a)
-    @box2d, @x, @y, @w, @h = b2d, x, y, w, h
-    # Define the polygon
-    sd = PolygonShape.new
-    # Figure out the box2d coordinates
-    box2d_w = box2d.scale_to_world(w / 2)
-    box2d_h = box2d.scale_to_world(h / 2)
-    # We're just a box
-    sd.set_as_box(box2d_w, box2d_h)
-    # Create the body
-    bd = BodyDef.new
-    bd.type = BodyType::STATIC
-    bd.angle = a
-    bd.position.set(box2d.processing_to_world(x, y))
-    @b = box2d.create_body(bd)
-    # Attached the shape to the body using a Fixture
-    b.create_fixture(sd, 1)
-  end
 
-  # Draw the boundary, it doesn't move so we don't have to ask 
-  # the Body for location
-  def display
-    fill(0)
-    stroke(0)
-    stroke_weight(1)
-    rect_mode(CENTER)
-    a = b.get_angle
-    push_matrix
-    translate(x, y)
-    rotate(-a)
-    rect(0, 0, w, h)
-    pop_matrix
-  end
-end
-
-module Runnable
-  def run
-    reject! { |item| item.done? }
-    each { |item| item.display }
-  end
-end
-
-class ParticleSystem
-  include Enumerable, Runnable
-  extend Forwardable
-  attr_reader :particles
-  
-  def_delegators(:@particles, :each, :reject!, :<<)
-  
-  def initialize
-    @particles = []    
-  end
-  
-  def add_shape(b2d, x, y)
-    @particles  << CustomShape.new(b2d, x, y)
-  end
-end
