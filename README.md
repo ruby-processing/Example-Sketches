@@ -1,7 +1,7 @@
 Example-Sketches
 ================
 
-Many of the vanilla processing example sketches have been translated to ruby-processing, and they are mainly written as 'bare' sketches (ie not class wrapped) in keeping with the original processing.  At runtime these sketches the get wrapped into a Sketch class. Should you prefer you can still write class wrapped sketches, these will work equally well with ruby-processing. Certain sketches must be run with JRuby-Complete (mainly `load_image` and `shader` sketches), this is a java permissions thing with jruby. You should also checkout the [Nature of Code Examples in ruby][] and for the beginner [Learning Processing with Ruby][] for even more examples.
+Many of the vanilla processing example sketches have been translated to ruby-processing, and they are mainly written as 'bare' sketches (ie not class wrapped) in keeping with the original processing.  At runtime these sketches the get wrapped into a Sketch class. Should you prefer you can still write class wrapped sketches, these will work equally well with ruby-processing. Certain sketches must be run with JRuby-Complete (mainly `load_image` and `shader` sketches), this is a [java permissions thing with jruby][]. You should also checkout the [Nature of Code Examples in ruby][] and for the beginner [Learning Processing with Ruby][] for even more examples.
 
 ### Partial Catalogue (for the lazy)
 
@@ -54,3 +54,4 @@ Many of the vanilla processing example sketches have been translated to ruby-pro
 [video]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/processing_app/library/video
 [control-panel]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/contributed/jwishy.rb
 [JBox2D]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/external_library/ruby_gem/jbox2d
+[java permissions thing with jruby]:https://github.com/jashkenas/ruby-processing/wiki/FAQs
