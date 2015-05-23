@@ -1,4 +1,4 @@
-load_library :guido
+load_library :Guido # warning should be lowercase lib author may correct this
 import 'de.bezier.guido'
 
 def setup
@@ -41,7 +41,7 @@ class Slider < ActiveElement
     @value_x = mx - @height / 2    
     @value_x = @x if (@value_x < @x) 
     @value_x = @x + @width - @height if (@value_x > @x + @width - @height)    
-    @value = map(@value_x, @x, @x + @width - @height, 0, 1)
+    @value = map1d(@value_x, (@x..@x + @width - @height), (0..1))
   end
   
   def draw

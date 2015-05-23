@@ -1,6 +1,6 @@
-# Move the mouse left and right to shift the balance. 
-# The "mouseX" variable is used to control both the 
-# size and color of the rectangles. 
+# Move the mouse left and right to shift the balance.
+# The "mouseX" variable is used to control both the
+# size and color of the rectangles.
 
 def setup
   size 640, 360
@@ -11,17 +11,13 @@ end
 
 def draw
   background 0
-  
-  x_dist_blocks = width/2
-  block_size = map(mouse_x, 0, width, 10, x_dist_blocks - 10)
-  
+  x_dist_blocks = width / 2
+  block_size = map1d(mouse_x, (0..width), (10..x_dist_blocks - 10))
   left_color = -0.002 * mouse_x / 2 + 0.06
   fill 0.0, left_color + 0.4, left_color + 0.6
-  rect(width/4, height / 2, block_size * 2, block_size * 2)
-  
+  rect(width / 4, height / 2, block_size * 2, block_size * 2)
   block_size = x_dist_blocks - block_size
-  
-  right_color = 0.002 * mouse_x/2 + 0.06
+  right_color = 0.002 * mouse_x / 2 + 0.06
   fill(0.0, right_color + 0.2, right_color + 0.4)
   rect((width / 4) * 3, height / 2, block_size * 2, block_size * 2)
 end

@@ -19,8 +19,8 @@ load_library 'word'
 
 DRACULA = 'dracula.txt'
 FRANKENSTEIN = 'frankenstein.txt'
-DRAC = /#{DRACULA}/
-FRANK = /#{FRANKENSTEIN}/
+DRAC = Regexp.new(DRACULA)
+FRANK = Regexp.new(FRANKENSTEIN)
 
 attr_accessor :words
 
@@ -57,20 +57,20 @@ def load_file(filename)
       # We access objects from a Hash via its key, the String
       w = words[s]
       # Which book am I loading?
-      if DRAC =~ filename
+      if !DRAC.match(filename).nil?
         w.increment_dracula
-      elsif FRANK =~ filename
+      elsif !FRANK.match(filename).nil?
         w.increment_franken
       end
     else
       # Otherwise make a new word
-      w = Word.new(s)
+      w = Word.new(self, s)
       # And add entry to the Hash
       # The key for us is the String and the value is the Word object
       words[s] = w
-      if DRAC =~ filename
+      if DRAC.match(filename)
         w.increment_dracula
-      elsif FRANK =~ filename
+      elsif FRANK.match(filename)
         w.increment_franken
       end
     end

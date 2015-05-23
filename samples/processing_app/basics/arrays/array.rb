@@ -10,7 +10,7 @@ def setup
   size 640, 360
   coswave = []
   0.upto(width) do |i|
-    amount = map i, 0, width, 0, PI
+    amount = map1d(i, (0..width), (0..PI))
     coswave[i] = cos(amount).abs
   end
   0.upto(width) do |i|

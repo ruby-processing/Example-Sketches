@@ -36,7 +36,7 @@ def draw
   @step_angle = TAU / (detail.to_i - 1)
   fill color('#ffffff')
   no_stroke
-  @cr = map(mouse_x, 0, width, 20, 200)
+  @cr = map1d(mouse_x, (0..width) , (20..200))
   begin_shape
   detail.to_i.times do |i|
     if (i == 0)

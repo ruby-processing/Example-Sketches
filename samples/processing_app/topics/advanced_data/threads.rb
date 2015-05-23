@@ -1,3 +1,4 @@
+
 #
 # Thread function example
 # by Martin Prout (after a Dan Schiffman vanilla processing version).
@@ -50,7 +51,7 @@ def draw
     rect(width / 2 - 150, height / 2, 300, 10)
     fill(255)
     # The size of the rectangle is mapped to the percentage completed
-    w = map(percent, 0, 1, 0, 300)
+    w = map1d(percent, (0..1.0), (0..300))
     rect(width / 2 - 150, height / 2, w, 10)
     text_size(16)
     text_align(CENTER)
