@@ -47,17 +47,15 @@ def draw
     # the Hash using the word String as the key
     concordance[s] = Word.new(s)
   end
-
   # x and y will be used to locate each word
   x = 0
   y = height - 10
-
   # Look at each word
   concordance.values.each do |w|
     # Only display words that appear 3 times
     if w.count > 3  # access word count
       # The size is the count
-      fsize = constrain(w.count, 0, 100)
+      fsize = (0..100).clip w.count
       text_size(fsize)
       text(w.word, x, y)
       # Move along the x-axis
@@ -65,13 +63,9 @@ def draw
     end
     # If x gets to the end, move y
     # If y == 0 we are done
-    if y == 0
-      no_loop
-    else
-      if x > width
-        x = 0
-        y = (y < 0) ? 0 : y - 100
-      end
-    end
+    no_loop if y == 0
+    next unless x >= width
+    x = 0
+    y = (y < 0) ? 0 : y - 100
   end
 end
