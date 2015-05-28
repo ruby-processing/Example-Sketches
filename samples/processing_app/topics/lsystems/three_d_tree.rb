@@ -6,17 +6,16 @@
 load_libraries :stochastic_grammar, :control_panel
 attr_reader :plant, :zoom, :rot_y, :panel
 
-def setup 
+def setup
   size(800, 800, P3D)
-  camera(400.0, 500.0, 200.0, 0.0, -160.0, 0.0, 
-       0.0, 1.0, 0.0)
+  camera(400.0, 500.0, 200.0, 0.0, -160.0, 0.0,
+         0.0, 1.0, 0.0)
   setup_panel
   @plant = Plant.new
   plant.create_grammar(5)
   no_stroke
   @rot_y = 0
 end
-
 
 def setup_panel
   control_panel do |c|
@@ -31,12 +30,12 @@ end
 
 def reset
   @rot_y = 0
-  @zoom = 1     
+  @zoom = 1
 end
 
-def draw 
-  panel.set_visible true if self.visible
-  background(0) 
+def draw
+  panel.set_visible true if visible
+  background(0)
   rotate_y rot_y
   scale zoom
   ambient_light(0, 255, 0)
@@ -44,17 +43,16 @@ def draw
   plant.render
 end
 
-
 ############################
-# plant.rb
+# Plant class
 ###########################
 class Plant
   include Processing::Proxy
-  
-  attr_reader :grammar, :axiom, :production, :premis, :rule, 
-  :theta, :scale_factor, :distance, :phi
-  
-  def initialize 
+
+  attr_reader :grammar, :axiom, :production, :premis, :rule,
+              :theta, :scale_factor, :distance, :phi
+
+  def initialize
     @axiom = 'F'
     @grammar = StochasticGrammar.new(axiom)
     @production = axiom
@@ -67,25 +65,25 @@ class Plant
     grammar.add_rule(premis, rule)
     no_stroke
   end
-  
-  def render 
+
+  def render
     production.each_char do |ch|
-      case(ch)
-      when 'F'     
+      case ch
+      when 'F'
         fill(0, 200, 0)
         translate(0, distance / -2, 0)
-        box(distance / 4 , distance, distance / 4)
-        translate(0, distance/-2, 0)
+        box(distance / 4, distance, distance / 4)
+        translate(0, distance / -2, 0)
       when '-'
-        rotateX(-theta)
+        rotate_x(-theta)
       when '+'
-        rotateX(theta)
+        rotate_x(theta)
       when '&'
-        rotateY(-phi % TAU)
+        rotate_y(-phi % TAU)
       when '>'
-        rotateZ(phi % TAU)
+        rotate_z(phi % TAU)
       when '<'
-        rotateZ(-phi)
+        rotate_z(-phi)
       when '['
         push_matrix
         @distance = distance * scale_factor
@@ -102,7 +100,7 @@ class Plant
   # create grammar from axiom and
   # rules (adjust scale)
   ##############################
-  
+
   def create_grammar(gen)
     @production = @grammar.generate gen
   end

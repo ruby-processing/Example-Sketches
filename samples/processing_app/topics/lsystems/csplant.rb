@@ -1,7 +1,7 @@
 ########################################################
 # csplant.rb
 # A 3D Plant implemented using a Context Sensitive
-# Lindenmayer System in ruby-processing 
+# Lindenmayer System in ruby-processing
 # by Martin Prout (30 January 2013)
 # Hold down 'y' key and drag mouse to rotate about y axis
 ########################################################
@@ -20,29 +20,25 @@ end
 def draw
   background 0
   lights
-  translate(0, height*0.3)
+  translate(0, height * 0.3)
   csplant.render
 end
 
 ############
-# CSPlant 
+# CSPlant
 ############
-
 class CSPlant
   include Processing::Proxy
 
   IGNORE = '[]+-^&3'
   attr_reader :grammar, :axiom, :production, :premis, :rule,
-  :theta, :scale_factor, :len, :phi, :len
+              :theta, :scale_factor, :len, :phi, :len
 
   def initialize(len)
     @axiom = 'F'
     @grammar = Grammar.new(
       axiom,
-      {
-        'F' => 'F[-EF[3&A]]E[+F[3^A]]',        
-        'F<E' => 'F[&F[3+A]][^F[3-A]]'
-      },
+      { 'F' => 'F[-EF[3&A]]E[+F[3^A]]', 'F<E' => 'F[&F[3+A]][^F[3-A]]' },
       IGNORE
     )
     @production = axiom

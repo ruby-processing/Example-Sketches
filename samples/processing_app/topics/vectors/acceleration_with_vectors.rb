@@ -47,7 +47,7 @@ class Mover
   def initialize(width, height)
     # Start in the center
     @location = PVector.new(width / 2, height / 2)
-    @velocity = PVector.new(0,0)
+    @velocity = PVector.new(0, 0)
     @topspeed = 5
   end
   

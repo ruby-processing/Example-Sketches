@@ -13,13 +13,9 @@ def setup
   (0..7).each do |i|
     grammar = Grammar.new(
       'baaaaaa',
-      {
-        'b<a' => 'b',   # context sensitive rule replace a when preceded by b
-        'b'   =>'a'
-      }
-      )    
+      'b<a' => 'b',   # context sensitive rule replace a when preceded by b
+      'b' => 'a'
+    )
     text grammar.generate(i), 30, i * 25
   end
 end
-
-

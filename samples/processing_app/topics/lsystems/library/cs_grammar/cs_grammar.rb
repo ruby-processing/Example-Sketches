@@ -1,12 +1,3 @@
-######################################
-# cs_grammar.rb a context sensitive
-# 1-L lsystem grammar for
-# ruby/ruby-processing
-# by Martin Prout (January 2013)
-######################################
-
-
-
 ##################################
 # The grammar class stores rules
 # in two Hashes, one for cs rules,
@@ -14,10 +5,9 @@
 # are filtered on input, and context
 # is checked using get_rule in production
 ##################################
-
 class Grammar
-
   attr_reader :axiom, :context, :no_context, :idx, :ignore
+
   def initialize(axiom, rules, ignore = '')
     @axiom = axiom
     @no_context = {}
@@ -39,44 +29,43 @@ class Grammar
     elsif pre.length == 1
       @no_context[pre] = rule # key length == 1
     else
-      print 'unrecognized grammar '#{pre}''
+      puts "unrecognized grammar '#{pre}'"
     end
   end
 
   def generate(repeat = 0) # repeat iteration grammar rules
     prod = axiom
     repeat.times { prod = new_production(prod) }
-    return prod
+    prod
   end
 
-
-  def new_production prod  # single iteration grammar rules
+  def new_production(prod)  # single iteration grammar rules
     @idx = -1
     prod.gsub!(/./) do |ch|
       get_rule(prod, ch)
     end
   end
 
-  def get_rule prod, ch
+  def get_rule(prod, ch)
     rule = ch # default is return original character as rule (no change)
     @idx += 1 # increment the index of axiom/production as a side effect
     if context.key?(ch)
       if context[ch][1] == '<'
         cs_char = context[ch][0]
-        rule = no_context[context[ch]] if cs_char == get_context(prod, idx, -1) # use context sensitive rule
+        rule = no_context[context[ch]] if cs_char == get_context(prod, idx, -1)
       elsif context[ch][1] == '>'
         cs_char = context[ch][2]
-        rule = no_context[context[ch]] if cs_char == get_context(prod, idx, 1) # use context sensitive rule
+        rule = no_context[context[ch]] if cs_char == get_context(prod, idx, 1)
       end
     else
-      rule = no_context[ch] if no_context.key?(ch) # context free rule if it exists
+      rule = no_context[ch] if no_context.key?(ch)
     end
-    return rule
+    rule
   end
 
   def get_context(prod, idx, inc)
     index = idx + inc
     index += inc while ignore.include?(prod[index])
-    return prod[index]
+    prod[index]
   end
 end

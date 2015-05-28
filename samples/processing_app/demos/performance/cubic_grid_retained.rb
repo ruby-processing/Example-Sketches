@@ -19,9 +19,9 @@ def setup
   no_stroke
   @grid = create_shape(GROUP)
   # Build grid using multiple translations
-  (-(DEPTH/2 + MARGIN) ... (DEPTH/2 - MARGIN)).step(BOX_SIZE) do |i|
-    (-(height + MARGIN) ... (height - MARGIN)).step(BOX_SIZE) do |j|
-      (-(width + MARGIN) ... (width - MARGIN)).step(BOX_SIZE) do |k|
+  (-(DEPTH/2 + MARGIN)...(DEPTH/2 - MARGIN)).step(BOX_SIZE) do |i|
+    (-(height + MARGIN)...(height - MARGIN)).step(BOX_SIZE) do |j|
+      (-(width + MARGIN)...(width - MARGIN)).step(BOX_SIZE) do |k|
         # Base fill color on counter values, abs function
         # ensures values stay within legal range
         @box_fill = color(i.abs.to_i, j.abs.to_i, k.abs.to_i, 50)
@@ -38,21 +38,21 @@ def draw
   background(255)
   hint(DISABLE_DEPTH_TEST)
   # Center and spin grid
-  push_matrix()
-  translate(width/2, height/2, -DEPTH)
+  push_matrix
+  translate(width / 2, height / 2, -DEPTH)
   rotate_y(frame_count * 0.01)
   rotate_x(frame_count * 0.01)
   shape(grid)
-  pop_matrix()
+  pop_matrix
   hint(ENABLE_DEPTH_TEST)
   @fcount += 1
-  m = millis()
+  m = millis 
   if (m - lastm > 1000 * FINT)
     @frate = fcount / FINT
     @fcount = 0
     @lastm = m
-    puts("fps: #{frate}")
+    puts(format('fps: %s', frate))
   end
   fill(0)
-  text("fps: #{frate}", 10, 20)
+  text(format('fps: %s', frate), 10, 20)
 end

@@ -15,10 +15,9 @@ attr_reader :location,  # Location of shape
 def setup
   size(640,360)
   smooth
-  @location = PVector.new(100,100)
-  @velocity = PVector.new(1.5,2.1)
-  @gravity = PVector.new(0,0.2)
-
+  @location = PVector.new(100, 100)
+  @velocity = PVector.new(1.5, 2.1)
+  @gravity = PVector.new(0, 0.2)
 end
 
 def draw
@@ -44,7 +43,7 @@ if (location.y > height)
   stroke(255)
   stroke_weight(2)
   fill(127)
-  ellipse(location.x,location.y,48,48)
+  ellipse(location.x, location.y, 48, 48)
 end
 
 

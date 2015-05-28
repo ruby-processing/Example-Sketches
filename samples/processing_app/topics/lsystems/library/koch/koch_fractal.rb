@@ -1,3 +1,4 @@
+# Kochline class
 class KochLine
   include Processing::Proxy
   attr_reader :start, :finish
@@ -19,7 +20,7 @@ class KochLine
     v + start
   end
 
-  # More complicated, have to use a little trig to figure out where this vector is!
+  # More complicated, using a little trig to figure out where this vector is!
   def kochmiddle
     v = finish - start
     v /= 3
@@ -37,6 +38,7 @@ class KochLine
   end
 
   private
+
   def rotate_line(v, theta)
     xtemp = v.x
     # Might need to check for rounding errors like with angleBetween function?
@@ -45,6 +47,7 @@ class KochLine
   end
 end
 
+# KochFractal class
 class KochFractal
   attr_reader :count, :start, :finish, :lines
   def initialize(width, height)
@@ -64,11 +67,11 @@ class KochFractal
   def restart
     @count = 0      # Reset count
     lines.clear     # Empty the array list
-    lines << KochLine.new(start, finish)  # Add the initial line (from one end vector to the other)
+    lines << KochLine.new(start, finish)
   end
 
   def render
-    lines.each{ |line| line.display }
+    lines.each(&:display)
   end
 
   # This is where the **MAGIC** happens
@@ -76,24 +79,24 @@ class KochFractal
   # Step 2: For every line currently in the arraylist
   #   - calculate 4 line segments based on Koch algorithm
   #   - add all 4 line segments into the new arraylist
-  # Step 3: Return the new arraylist and it becomes the list of line segments for the structure
-
-  # As we do this over and over again, each line gets broken into 4 lines, which gets broken into 4 lines, and so on. . .
+  # Step 3: Return the new arraylist and it becomes the list of line segments
+  # for the structure. As we do this over and over again, each line gets broken
+  # into 4 lines, which gets broken into 4 lines, and so on. . .
   def iterate(before)
-    now = []    # Create emtpy list
-    before.each do |l|
-      # Calculate 5 koch vectors (done for us by the line object)
-      a = l.start
-      b = l.kochleft
-      c = l.kochmiddle
-      d = l.kochright
-      e = l.finish
-      # Make line segments between all the vectors and add them
-      now << KochLine.new(a, b)
-      now << KochLine.new(b, c)
-      now << KochLine.new(c, d)
-      now << KochLine.new(d, e)
+    [].tap do |now|    # Create empty list
+      before.each do |l|
+        # Calculate 5 koch vectors (done for us by the line object)
+        a = l.start
+        b = l.kochleft
+        c = l.kochmiddle
+        d = l.kochright
+        e = l.finish
+        # Make line segments between all the vectors and add them
+        now << KochLine.new(a, b)
+        now << KochLine.new(b, c)
+        now << KochLine.new(c, d)
+        now << KochLine.new(d, e)
+      end
     end
-    now
   end
 end

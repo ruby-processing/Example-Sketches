@@ -2,7 +2,6 @@
 # Simple lsystem grammar
 ############################
 class Grammar
-
   attr_reader :axiom, :rules
   def initialize(axiom, rules)
     @axiom = axiom
@@ -24,8 +23,8 @@ class Grammar
   end
 
   def generate(gen)
-    output = []
-    each(gen) { |token| output << token }
-    return output
+    [].tap do |output|
+      each(gen) { |token| output << token }
+    end
   end
 end

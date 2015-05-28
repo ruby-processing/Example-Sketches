@@ -17,30 +17,29 @@ class StochasticGrammar
   #####################################################
 
   def stochastic_rule(rules)
-    total = rules.reduce(0) { |rule_and_weight| rule_and_weight[PROB] }
+    total = rules.values.reduce(&:+)
     srand
-    chance = rand * total
+    chance = rand(0..total)
     rules.each do |item, weight|
       return item unless chance > weight
       chance -= weight
     end
-    return rule
   end
 
   def rule?(pre)
     @srules.key?(pre)
   end
 
-  def add_rule(pre, rule, weight = 1.0)    # default weighting 1 (can handle non-stochastic rules)
+  def add_rule(pre, rule, weight = 1.0) # default weighting 1
     @srules ||= Hash.new { |h, k| h[k] = 1 }
-    if rule?(pre)                      # add to existing hash
+    if rule?(pre)                       # add to existing hash
       srules[pre][rule] = weight
     else
-      srules[pre] = { rule => weight }     # store new hash with pre key
+      srules[pre] = { rule => weight }  # store new hash with pre key
     end
   end
 
-  def new_production(prod)  # note the use of gsub!, we are changing prod as we go
+  def new_production(prod)  # note the use of gsub!
     prod.gsub!(/./) do |ch|
       rule?(ch) ? stochastic_rule(srules[ch]) : ch
     end
@@ -49,6 +48,6 @@ class StochasticGrammar
   def generate(repeat = 0)
     prod = axiom
     repeat.times { prod = new_production(prod) }
-    return prod
+    prod
   end
 end

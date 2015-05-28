@@ -3,6 +3,10 @@
 ###########################
 load_library :grammar, :fastmath
 
+##
+# A Pentagonal Fractal created using a
+# Lindenmayer System in ruby-processing by Martin Prout
+###
 class Pentagonal
   include Processing::Proxy
   DELTA = 72    # degrees
@@ -29,24 +33,24 @@ class Pentagonal
 
   def make_shape
     no_fill
-    shape = create_shape
-    shape.begin_shape
-    shape.stroke 200
-    shape.stroke_weight 3
-    shape.vertex(xpos, ypos)
-    production.each do |element|
-      case element
-      when 'F'    # you could use processing transforms here, I prefer to do the Math
-        shape.vertex(@xpos -= adjust(:cos), @ypos += adjust(:sin))
-      when '+'
-        @theta += DELTA
-      when '-'
-        @theta -= DELTA
-      else puts 'Grammar not recognized'
+    create_shape.tap do |shape|
+      shape.begin_shape
+      shape.stroke 200
+      shape.stroke_weight 3
+      shape.vertex(xpos, ypos)
+      production.each do |element|
+        case element
+        when 'F'
+          shape.vertex(@xpos -= adjust(:cos), @ypos += adjust(:sin))
+        when '+'
+          @theta += DELTA
+        when '-'
+          @theta -= DELTA
+        else puts 'Grammar not recognized'
+        end
       end
+      shape.end_shape
     end
-    shape.end_shape
-    return shape
   end
 
   ###########################################
@@ -55,20 +59,14 @@ class Pentagonal
 
   def adjust(type)
     # using equal? for identity comparison
-    (type.equal? :cos)?  draw_length * DegLut.cos(theta) : draw_length * DegLut.sin(theta)
+    (type.equal? :cos) ? draw_length * DegLut.cos(theta) : draw_length * DegLut.sin(theta)
   end
 end
 
-##
-# A Pentagonal Fractal created using a
-# Lindenmayer System in ruby-processing by Martin Prout
-###
-
-#  Empirically determined pstition adjustments
+#  Empirically determined position adjustments
 ADJUST = [[800, 50], [500, 500], [500, 500], [300, 280], [50, 600]]
 
 attr_reader :pentagonal, :pentive
-
 
 def setup
   size 800, 800, P2D

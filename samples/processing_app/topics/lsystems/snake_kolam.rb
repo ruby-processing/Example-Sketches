@@ -5,6 +5,7 @@
 
 load_library :grammar, :fastmath
 
+# class SnakeKolam
 class SnakeKolam
   include Processing::Proxy
 
@@ -12,68 +13,67 @@ class SnakeKolam
   XPOS = 0
   YPOS = 1
   ANGLE = 2
-  DELTA = 90 # degrees 
-  
-  def initialize xpos, ypos
+  DELTA = 90 # degrees
+
+  def initialize(xpos, ypos)
     setup_grammar
     @start_length = 120.0
-    @theta = 90 # degrees 
+    @theta = 90 # degrees
     @draw_length = start_length
-    @xpos = xpos 
-    @ypos = ypos 
+    @xpos = xpos
+    @ypos = ypos
   end
-  
+
   def setup_grammar
     @axiom = 'FX+F+FX+F'
     @grammar = Grammar.new(
       axiom,
-      {'X' => 'X-F-F+FX+F+FX-F-F+FX'}
-      )
+      'X' => 'X-F-F+FX+F+FX-F-F+FX')
   end
-    
-  def render                     # NB not uDegLut.sing affine transforms here
+
+  def render                     # NB not using affine transforms here
     turtle = [xpos, ypos, 0.0]
     production.each do |element|
       case element
-      when 'F'                     
+      when 'F'
         turtle = draw_line(turtle, draw_length)
       when '+'
-        turtle[ANGLE] += DELTA   # rotate by + theta if going the affine transform route
+        turtle[ANGLE] += DELTA
       when '-'
-        turtle[ANGLE] -= DELTA   # rotate by - theta if going the affine transform route
-      when 'X'                   # do nothing except recognize 'X' as a word in the L-system grammar
-      else 
-        puts "Character '#{element}' is not in grammar" 
+        turtle[ANGLE] -= DELTA
+      when 'X'
+      else
+        puts "Character '#{element}' is not in grammar"
       end
     end
   end
-  
+
   ##############################
   # create grammar from axiom and
   # rules (adjust scale)
   ##############################
-  
+
   def create_grammar(gen)
     @gen = gen
     @draw_length *= 0.6**gen
     @production = @grammar.generate gen
-  end    
-  
+  end
+
   private
+
   ######################################################
   # draws line uDegLut.sing current turtle and length parameters
   # returns a turtle corresponding to the new position
   ######################################################
-  
+
   def draw_line(turtle, length)
     new_xpos = turtle[XPOS] + length * DegLut.cos(turtle[ANGLE])
     new_ypos = turtle[YPOS] + length * DegLut.sin(turtle[ANGLE])
     line(turtle[XPOS], turtle[YPOS], new_xpos, new_ypos)
-    turtle = [new_xpos, new_ypos, turtle[ANGLE]]
+    [new_xpos, new_ypos, turtle[ANGLE]]
   end
-end  
-  
-  
+end
+
 attr_reader :kolam
 
 def setup
@@ -87,7 +87,5 @@ def draw
   background 0
   stroke_weight 3
   stroke 200
-  kolam.render 
+  kolam.render
 end
-  
-

@@ -1,15 +1,13 @@
-#######################################################
-# stochastic_test.rb
-#
-# Lindenmayer System in ruby-processing by Martin Prout
-# Exploring terminals with minimum logic
-########################################################
-
-
 load_library :stochastic_grammar, :fastmath
 
 Turtle = Struct.new(:x, :y, :angle)
 
+#######################################################
+# StochasticPlant
+#
+# Lindenmayer System in ruby-processing by Martin Prout
+# Exploring terminals with minimum logic
+########################################################
 class StochasticPlant
   include Processing::Proxy
 
@@ -17,7 +15,7 @@ class StochasticPlant
 
   DELTA = 23
 
-  def initialize xpos, ypos
+  def initialize(xpos, ypos)
     @draw_length = 350
     # use Struct as turtle
     @turtle = Turtle.new(xpos, ypos, 90)        # this way is up?
@@ -44,21 +42,22 @@ class StochasticPlant
       when '-'
         turtle.angle -= DELTA
       when '['
-        stack << turtle.dup    # push a copy of the current turtle to stack
+        stack << turtle.dup  # push a copy of the current turtle to stack
       when ']'
-        @turtle = stack.pop        # assign current turtle to an instance popped from the stack
+        @turtle = stack.pop  # set current to turtle popped from the stack
       else
         puts "Character '#{element}' is not in grammar"
       end
     end
   end
 
-  def create_grammar gen
+  def create_grammar(gen)
     @draw_length *= 0.5**gen
     @production = grammar.generate gen
   end
 
   private
+
   ######################################################
   # draws a line using current turtle and length parameters
   # returns a new turtle corresponding to the next position
@@ -71,7 +70,6 @@ class StochasticPlant
     Turtle.new(new_xpos, new_ypos, turtle.angle)
   end
 end
-
 
 attr_reader :stochastic, :stochastic1, :stochastic2
 

@@ -11,7 +11,7 @@ class MPeano
   include Processing::Proxy
 
   SQRT2 = Math.sqrt(2.0)
-  ISQRT2 = 1/SQRT2
+  ISQRT2 = 1 / SQRT2
 
   attr_reader :draw_length, :xpos, :ypos, :theta, :axiom, :grammar, :delta
 
@@ -37,27 +37,27 @@ class MPeano
   end
 
   def translate_rules(prod)
-    points = []               # An empty array to store line vertices
-    prod.each do |ch|
-      case(ch)
-      when 'F'
-        points << xpos << ypos << (@xpos -= draw_length * cos(theta)) << (@ypos -= draw_length * sin(theta))
-      when '+'
-        @theta += delta
-      when '-'
-        @theta -= delta
-      when '!'
-        @delta = -delta
-      when 'I'
-        @draw_length *= ISQRT2
-      when 'Q'
-        @draw_length *= SQRT2
-      when 'X', 'A', 'B'
-      else
-        puts("character '#{ch}' not in grammar")
+    [].tap do |points|      # An empty array to store line vertices
+      prod.each do |ch|
+        case ch
+        when 'F'
+          points << xpos << ypos << (@xpos -= draw_length * cos(theta)) << (@ypos -= draw_length * sin(theta))
+        when '+'
+          @theta += delta
+        when '-'
+          @theta -= delta
+        when '!'
+          @delta = -delta
+        when 'I'
+          @draw_length *= ISQRT2
+        when 'Q'
+          @draw_length *= SQRT2
+        when 'X', 'A', 'B'
+        else
+          puts("character '#{ch}' not in grammar")
+        end
       end
     end
-    return points
   end
 end
 

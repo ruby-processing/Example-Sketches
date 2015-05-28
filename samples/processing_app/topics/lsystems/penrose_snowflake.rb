@@ -1,13 +1,18 @@
 load_libraries :grammar, :fastmath
 
+#
+# Lindenmayer System in ruby-processing by Martin Prout
+# Very loosely based on a processing Penrose L-System
+# by Geraldine Sarmiento
+###
 class PenroseSnowflake
   include Processing::Proxy
 
   attr_accessor :axiom, :grammar, :start_length, :theta, :production,
-    :draw_length, :xpos, :ypos
+                :draw_length, :xpos, :ypos
   DELTA = 18 # degrees as radians
 
-  def initialize xpos, ypos
+  def initialize(xpos, ypos)
     @axiom = 'F3-F3-F3-F3-F'
     @grammar = Grammar.new(axiom, 'F' => 'F3-F3-F45-F++F3-F')
     @start_length = 450.0
@@ -62,15 +67,9 @@ class PenroseSnowflake
   def multiplier(repeats, type)
     value = draw_length * repeats
     # using equal? for identity comparison
-    (type.equal? :cos)?  value * DegLut.cos(theta) : value *  DegLut.sin(theta)
+    (type.equal? :cos) ? value * DegLut.cos(theta) : value * DegLut.sin(theta)
   end
 end
-
-##
-# Lindenmayer System in ruby-processing by Martin Prout
-# Very loosely based on a processing Penrose L-System
-# by Geraldine Sarmiento
-###
 
 attr_reader :penrose
 

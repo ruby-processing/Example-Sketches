@@ -9,8 +9,8 @@ attr_reader :chequer
 
 def setup
   size 600, 600
-  @chequer = Chequer.new width * 0.9, height/10
-  chequer.create_grammar 4  
+  @chequer = Chequer.new width * 0.9, height / 10
+  chequer.create_grammar 4
   no_loop
 end
 
@@ -19,29 +19,30 @@ def draw
   chequer.render
 end
 
+# Chequer class
 class Chequer
   include Processing::Proxy
   attr_accessor :axiom, :grammar, :production, :draw_length, :theta, :xpos, :ypos
   DELTA = HALF_PI
-  
+
   def initialize(xpos, ypos)
-    @xpos = xpos 
-    @ypos = ypos 
+    @xpos = xpos
+    @ypos = ypos
     @axiom = 'F-F-F-F'        # Axiom
     @grammar = Grammar.new(axiom, 'F' => 'FF-F-F-F-FF')
     @draw_length = 500
     stroke 0, 255, 0
-    stroke_weight 2  
+    stroke_weight 2
     @theta = 0
   end
-  
+
   def render
     production.each do |element|
       case element
-      when 'F'                     
+      when 'F'
         x_temp = xpos
         y_temp = ypos
-        @xpos -= draw_length * cos(theta) 
+        @xpos -= draw_length * cos(theta)
         @ypos -= draw_length * sin(theta)
         line(x_temp, y_temp, xpos, ypos)
       when '+'
@@ -53,14 +54,14 @@ class Chequer
       end
     end
   end
-  
+
   ##############################
   # create grammar from axiom and
   # rules (adjust scale)
   ##############################
-  
+
   def create_grammar(gen)
-    @draw_length /=  3**gen
+    @draw_length /= 3**gen
     @production = @grammar.generate gen
   end
 end

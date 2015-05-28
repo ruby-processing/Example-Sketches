@@ -23,7 +23,7 @@ def setup
   @rx = 0
   @ry =0
   no_smooth
-  @radius = height/3.5
+  @radius = height / 3.5
   @orb = HairyOrb.new(self, radius)
   QUANTITY.times do
     orb << create_hair(radius)
@@ -37,9 +37,7 @@ def draw
   no_stroke
   sphere(radius)
   orb.render
-  if (frame_count % 10 == 0)
-    puts(frame_rate)
-  end
+  puts(frame_rate) if (frame_count % 10 == 0)
 end
 
 def create_hair radius
