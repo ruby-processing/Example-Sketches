@@ -6,7 +6,7 @@
 # background-subtraction technique. To initialize the background, press a key.
 #
 
-load_library :video
+load_libraries :video, :video_event
 include_package 'processing.video'
 
 attr_reader :background_pixels, :number_of_pixels, :video
@@ -35,8 +35,6 @@ def capture  # captureEvent does not work like vanilla processing
 end
 
 def draw
-  return unless (video.available == true)
-  capture
   video.load_pixels # Make the pixels of video available
   # Difference between the current frame and the stored background
   # current_sum = 0
@@ -64,6 +62,10 @@ def draw
   end
   update_pixels # Notify that the pixels[] array has changed
   # p current_sum # Print out the total amount of movement
+end
+
+def captureEvent(c)
+  c.read
 end
 
 def key_pressed

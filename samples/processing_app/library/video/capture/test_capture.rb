@@ -1,12 +1,12 @@
-load_library :video
+load_library :video, :video_event
 
 include_package 'processing.video'
 
 attr_reader :cam
 
 def setup
-  size(960, 544) 
-  cameras = Capture.list 
+  size(960, 544)
+  cameras = Capture.list
   fail 'There are no cameras available for capture.' if (cameras.length == 0)
   p 'Matching cameras available:'
   size_pattern = Regexp.new(format('%dx%d', width, height))
@@ -25,10 +25,12 @@ def start_capture(cam_string)
 end
 
 def draw
-  return unless (cam.available == true)
-  cam.read
   image(cam, 0, 0)
   # The following does the same, and is faster when just drawing the image
   # without any additional resizing, transformations, or tint.
   # set(0, 0, cam)
+end
+
+def captureEvent(c)
+  c.read
 end

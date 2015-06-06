@@ -4,7 +4,7 @@
 #
 #
 
-load_library 'video'
+load_libraries :video, :video_event
 include_package 'processing.video'
 
 attr_reader :movie
@@ -18,6 +18,10 @@ def setup
 end
 
 def draw
-  movie.read if movie.available?
   image(movie, 0, 0, width, height)
+end
+
+# use camel case to match java reflect method
+def movieEvent(m)
+  m.read
 end

@@ -7,7 +7,7 @@
 # This sketch is a simple homage that re-interprets live video as ASCII text.
 # See the key_pressed function for more options, like changing the font size.
 #
-load_library :video
+load_library :video, :video_event
 include_package 'processing.video'
 
 attr_reader :bright, :char, :cheat_screen, :font, :font_size, :letters, :video
@@ -15,11 +15,12 @@ attr_reader :bright, :char, :cheat_screen, :font, :font_size, :letters, :video
 # All ASCII characters, sorted according to their visual density
 LETTER_STRING = %q{ .`-_':,;^=+/\"|)\\<>)iv%xclrs{*}I?!][1taeo7zjLunT#JCwfy325Fp6mqSghVd4EgXPGZbYkOA&8U$@KHDBWNMR0Q}
 LETTER_ORDER = LETTER_STRING.scan(/./)
+
 def setup
   size(640, 480)
   init_video
   @font_size = 1.5
-  @font = load_font(data_path('UniversLTStd-Light-48.vlw'))
+  @font = load_font('UniversLTStd-Light-48.vlw')
   # for the 256 levels of brightness, distribute the letters across
   # the an array of 256 elements to use for the lookup
   @letters = (0...256).map do |i|
@@ -38,14 +39,12 @@ def init_video
   @cheat_screen = false
 end
 
-def capture_event(c)
+def captureEvent(c)
   c.read
-  background 0
 end
 
 def draw
-  return unless (video.available == true)
-  capture_event(video)
+  background 0
   push_matrix
   hgap = width / video.width
   vgap = height / video.height

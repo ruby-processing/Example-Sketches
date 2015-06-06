@@ -1,12 +1,10 @@
-#
 # Speed.
-#
-# Use the Movie.speed method to change
+# drag mouse down screen to increase speed
+# drag mouse ip screen to decrease speed
+# Uses the Movie.speed method to change
 # the playback speed.
-#
-#
 
-load_library :video
+load_libraries :video, :video_event
 include_package 'processing.video'
 
 attr_reader :mov
@@ -20,13 +18,13 @@ end
 
 def draw
   image(mov, 0, 0)
-  begin
-    mov.read
-  end if mov.available?
-
-  new_speed = map1d(mouse_x, (0..width), (0.1..2))
+  new_speed = map1d(mouse_y, (0..height), (0.1..2))
   mov.speed(new_speed)
-
   fill(255)
   text(format('%.2fX', new_speed), 10, 30)
+end
+
+# use camel case to match java reflect method
+def movieEvent(m)
+  m.read
 end

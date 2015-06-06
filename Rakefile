@@ -3,7 +3,14 @@
 root = File.expand_path(__dir__)
 
 desc 'run contributed samples'    
-task :default => [:contributed]
+task :default => [:all]
+
+desc 'run all autorun samples'
+task :all do
+  Rake::Task[:contributed].execute
+  Rake::Task[:vecmath].execute  
+  Rake::Task[:shaders].execute
+end
 
 desc 'run contributed samples'
 task :contributed do

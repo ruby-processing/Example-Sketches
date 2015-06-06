@@ -9,7 +9,7 @@
 # codec, at least in its current version.
 #
 #
-load_library :video
+load_library :video, :video_event
 include_package 'processing.video'
 
 attr_reader :mov, :speed_set, :once
@@ -24,11 +24,7 @@ def setup
 end
 
 def draw
-  begin   # avoids reflection shit
-    mov.read
-    @speed_set = false if (speed_set == true)
-  end if mov.available?
-  if (speed_set == false) && (once == true)
+  if speed_set == false && once
     # Setting the speed should be done only once,
     # this is the reason for the if statement.
     @speed_set = true
@@ -41,4 +37,10 @@ def draw
     mov.play
   end
   image(mov, 0, 0, width, height)
+end
+
+def movieEvent(m)
+  m.read
+  return unless speed_set
+  @speed_set = false
 end

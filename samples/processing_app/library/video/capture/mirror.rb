@@ -5,7 +5,7 @@
 # Each pixel from the video source is drawn as a rectangle with rotation
 # based on brightness.
 
-load_library :video
+load_libraries :video, :video_event
 include_package 'processing.video'
 
 # Size of each cell in the grid
@@ -27,8 +27,6 @@ def setup
 end
 
 def draw
-  return unless video.available
-  video.read
   video.load_pixels
   # Begin loop for columns
   cols.times do |i|
@@ -58,4 +56,8 @@ def draw
       pop_matrix
     end
   end
+end
+
+def captureEvent(c)
+  c.read
 end
