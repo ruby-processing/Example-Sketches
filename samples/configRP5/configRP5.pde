@@ -1,21 +1,22 @@
 import java.io.File;
 
-Button enter, nojruby;
+Button enter, nojruby, winver;
 String processingRoot = "enter your processing root here"; // edit this line in the sketch
 String done = "Done";
 String OS = System.getProperty("os.name").toLowerCase();
-String home, suggestion, separator, root;
+String home, suggestion, separator, root, sketchbookPath;
 PFont font;
-float rectX, rectX2, rectY;      // Position of buttons
+float rectX, rectX2, rectX3, rectY;      // Position of buttons
 float rectHeight = 30;           // height of rect
 float rectWidth = 90;            // width of rect
-int rectColor, rectColor2;
-int rectHighlight, rectHighlight2;
+int rectColor, rectColor2, rectColor3;
+int rectHighlight, rectHighlight2, rectHighlight3;
 int currentColor;
-int selectedColor;
+int selectedColor, selectedColor2, selectedColor3;
 boolean acceptOver = false;
 boolean noJruby = false;
 boolean selected = false;
+boolean eightOne = false;
 String jruby = "true";
 // The JSON object
 JSONObject json;
@@ -30,19 +31,31 @@ void setup() {
   font = createFont("Helvetica", 18);
   if (OS.contains("mac")) {
     suggestion = "/Applications/Processing.app/Contents/Resources/Java";
+    sketchbookPath = home + separator + "Documents/Processing/sketchbook";
+  } else if (OS.contains("windows")) {
+    sketchbookPath = (eightOne) ? home + separator + "Documents" + separator +"sketchbook" :
+    home + separator + "My Documents" + separator +"sketchbook";
+    suggestion = home + separator + "processing-2.2.1";
   } else {
+    sketchbookPath = home + separator + "sketchbook";
     suggestion = home + separator + "processing-2.2.1";
   }
   rectColor = color(140);
   rectColor2 = color(140);
+  rectColor3 = color(140);
   rectHighlight = color(100);
   rectHighlight2 = color(100);
+  rectHighlight3 = color(100);
   selectedColor = color(0);
+  selectedColor2 = color(0);
+  selectedColor3 = color(0);
   rectX = rectWidth + 20;
   rectX2 = rectWidth + 150;
+  rectX3 = rectWidth + 300;
   rectY = height * 0.8 - rectHeight / 4;
   enter = new Button(rectX2, rectY, rectWidth, rectHeight, "enter");
   nojruby = new Button(rectX, rectY, rectWidth, rectHeight, "nojruby");
+  winver = new Button(rectX3, rectY, rectWidth, rectHeight, "Win 8.1+");
 }
 
 void draw() {
@@ -62,9 +75,11 @@ void draw() {
   if (acceptOver) {
     enter.draw(rectHighlight);
     nojruby.draw(rectHighlight2);
+    winver.draw(rectHighlight3);
   } else {
     enter.draw(rectColor);
     nojruby.draw(rectColor2);
+    winver.draw(rectColor3);
   }
 }
 
@@ -73,6 +88,7 @@ void writeRoot() {
   rectHighlight = selectedColor;
   json.setString("PROCESSING_ROOT", processingRoot);
   json.setString("JRUBY", jruby);
+  json.setString("sketchbook_path", sketchbookPath);
   json.setInt("X_OFF", floor(displayWidth * 0.1));
   json.setInt("Y_OFF", floor(displayHeight * 0.1));
 
@@ -106,17 +122,21 @@ void update(float x, float y) {
 }
 
 
+
 void mouseClicked() {
   update(mouseX, mouseY);
   if (acceptOver) {
     rectColor = selectedColor;
     rectHighlight = selectedColor;
     writeRoot();
-  }
-  if (noJruby) {
-    rectColor2 = selectedColor;
-    rectHighlight2 = selectedColor;
+  } else if (noJruby) {
+    rectColor2 = selectedColor2;
+    rectHighlight2 = selectedColor2;
     jruby = "false";
+  } else if (!eightOne) {
+    rectColor3 = selectedColor3;
+    rectHighlight3 = selectedColor3;
+    eightOne = true;
   }
 }
 
@@ -145,3 +165,4 @@ class Button {
       && mouseY >= y && mouseY <= y + h);
   }
 }
+
