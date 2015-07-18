@@ -38,7 +38,7 @@
 
 require 'toxiclibs'
 
-load_library :mesh_to_vbo
+load_libraries :vecmath, :mesh_to_vbo
 
 RES = 64
 ISO = 0.2
@@ -53,7 +53,7 @@ def setup
   @curr_zoom = 1
   vol = EvaluatingVolume.new(TVec3D.new(400,400,400), RES, RES, RES, MAX_ISO)
   surface = Volume::HashIsoSurface.new(vol)
-  @mesh = Toxi::WETriangleMesh.new
+  @mesh = WETriangleMesh.new
   surface.compute_surface_mesh(mesh, ISO)
   @is_wire_frame = false
   no_stroke
@@ -74,7 +74,7 @@ end
 def key_pressed
   case key
   when 'l', 'L'
-    Toxi::LaplacianSmooth.new.filter(mesh, 1)
+    LaplacianSmooth.new.filter(mesh, 1)
     @implicit = vbo.meshToVBO(mesh, true)
     # new mesh so need to set finish
     implicit.setFill(color(222, 222, 222))
