@@ -13,7 +13,8 @@
 
 load_library :control_panel
 
-attr_accessor :x_wiggle, :y_wiggle, :magnitude, :bluish, :panel, :laf, :hide
+attr_reader :alpha, :back_color, :bluish, :hide, :magnitude, :panel
+attr_reader :x_wiggle, :y_wiggle
 
 def setup
   size 600, 600
@@ -31,20 +32,15 @@ def setup
   @alpha, @bluish = 0.5, 0.5
   @x_wiggle, @y_wiggle = 10.0, 0
   @magnitude = 8.15
-  @background = [0.06, 0.03, 0.18]
+  @back_color = [0.06, 0.03, 0.18]
   color_mode RGB, 1
   ellipse_mode CORNER
   smooth
 end
 
-def background=(*args)
-  @background = args.flatten
-end
-
-
 def draw_background
-  @background[3] = @alpha
-  fill(*@background) if @background[0]
+  back_color[3] = alpha
+  fill(*back_color.to_java(:float)) if back_color[0]
   rect 0, 0, width, height
 end
 
@@ -62,7 +58,7 @@ def draw
 
   # Seed the random numbers for consistent placement from frame to frame
   srand(0)
-  horiz, vert, mag = @x_wiggle, @y_wiggle, @magnitude
+  horiz, vert, mag = x_wiggle, y_wiggle, magnitude
 
   if @go_big
     mag  *= 2
@@ -76,7 +72,7 @@ def draw
   64.times do
     x += cos(horiz) * mag
     y += log10(vert) * mag + sin(vert) * 2
-    fill(sin(@y_wiggle + c), rand * 0.2, rand * blu, 0.5)
+    fill(sin(y_wiggle + c), rand * 0.2, rand * blu, 0.5)
     s = 42 + cos(vert) * 17
     args = [x - s / 2, y - s / 2, s, s]
     @shape == 'oval' ? oval(*args) : rect(*args)
