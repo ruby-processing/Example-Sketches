@@ -3,7 +3,7 @@
 # from a Python example for Nodebox, and then, now
 # to Ruby-Processing.
 
-# For fun, try running it via jirb, and
+# For fun, try running it using live mode, and
 # playing with the attr_accessors, as
 # well as the background.
 
@@ -18,13 +18,15 @@ attr_reader :x_wiggle, :y_wiggle
 
 def setup
   size 600, 600
+  frame.set_title 'Wishy Worm'
   control_panel do |c|
+    c.title = 'Control Panel'
     c.look_feel 'Nimbus'
     c.slider    :bluish, 0.0..1.0, 0.5
     c.slider    :alpha,  0.0..1.0, 0.5
     c.checkbox  :go_big
     c.button    :reset
-    c.menu      :shape, %w(oval square)
+    c.menu      :shape, %w(oval square triangle)
     @panel = c
   end
   @hide = false
@@ -61,7 +63,7 @@ def draw
   horiz, vert, mag = x_wiggle, y_wiggle, magnitude
 
   if @go_big
-    mag  *= 2
+    mag *= 2
     vert /= 2
   end
 
@@ -74,8 +76,8 @@ def draw
     y += log10(vert) * mag + sin(vert) * 2
     fill(sin(y_wiggle + c), rand * 0.2, rand * blu, 0.5)
     s = 42 + cos(vert) * 17
-    args = [x - s / 2, y - s / 2, s, s]
-    @shape == 'oval' ? oval(*args) : rect(*args)
+    args = [@shape, x - s / 2, y - s / 2, s, s]
+    draw_shape(args)
     vert += rand * 0.25
     horiz += rand * 0.25
     c += 0.1
@@ -87,4 +89,21 @@ end
 
 def mouse_pressed
   @hide = false if hide
+end
+
+def draw_shape(args)
+  case args[0]
+  when 'triangle'
+    x0 = args[1] - (args[3] * 0.6)
+    x1 = args[1]
+    x2 = args[1] + (args[3] * 0.6)
+    y0 = args[2] + (args[4] * 0.396)
+    y1 = args[2] - (args[4] * 0.792)
+    y2 = args[2] + (args[4] * 0.396)
+    triangle(x0, y0, x1, y1, x2, y2)
+  when 'oval'
+    oval(args[1], args[2], args[3], args[4])
+  when 'square'
+    rect(args[1], args[2], args[3], args[4])
+  end
 end
