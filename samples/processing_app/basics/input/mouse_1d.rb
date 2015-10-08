@@ -12,7 +12,8 @@ end
 def draw
   background 0
   x_dist_blocks = width / 2
-  block_size = map1d(mouse_x, (0..width), (10..x_dist_blocks - 10))
+  # block_size = map1d(mouse_x, (0..width), (10..x_dist_blocks - 10))
+  block_size = map(mouse_x, 0, width, 10, x_dist_blocks - 10)
   left_color = -0.002 * mouse_x / 2 + 0.06
   fill 0.0, left_color + 0.4, left_color + 0.6
   rect(width / 4, height / 2, block_size * 2, block_size * 2)
