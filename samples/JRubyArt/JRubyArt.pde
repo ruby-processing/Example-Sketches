@@ -98,6 +98,7 @@ void writeRoot() {
   if (!yaml.exists()) {
     try {
       PrintWriter writer = new PrintWriter(config, "UTF-8");
+      writer.println(String.format("--- # config.yml"));
       writer.println(String.format("PROCESSING_ROOT: %s", processingRoot));
       writer.println(String.format("JRUBY: %s", jruby));
       writer.println(String.format("sketchbook_path: %s", sketchbookPath));
