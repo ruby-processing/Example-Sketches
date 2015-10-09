@@ -1,10 +1,11 @@
-import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 
-Button enter, nojruby, check;
-String processingRoot = "enter your processing root here"; // edit this line in the sketch
+Button enter, nojruby, winver;
+String suggestion = "Enter your processing root here:"; // edit this line in the sketch
 String done = "Done";
 String OS = System.getProperty("os.name").toLowerCase();
-String home, suggestion, separator, root, sketchbookPath;
+String home, processingRoot, separator, root, sketchbookPath;
 PFont font;
 float rectX, rectX2, rectX3, rectY;      // Position of buttons
 float rectHeight = 30;           // height of rect
@@ -16,9 +17,8 @@ int selectedColor, selectedColor2, selectedColor3;
 boolean acceptOver = false;
 boolean noJruby = false;
 boolean selected = false;
-boolean configCheck = false;
+boolean eightOne = false;
 String jruby = "true";
-
 
 void setup() {
   size(600, 200);
@@ -28,14 +28,15 @@ void setup() {
   separator = System.getProperty("file.separator");
   font = createFont("Helvetica", 18);
   if (OS.contains("mac")) {
-    suggestion = "/Applications/Processing.app/Contents/Resources/Java";
+    processingRoot = "/Applications/Processing.app/Contents/Resources/Java";
     sketchbookPath = home + separator + "Documents/Processing/sketchbook";
   } else if (OS.contains("windows")) {
-    sketchbookPath = home + separator + "Documents" + separator + "sketchbook";
-    suggestion = home + separator + "processing-3.0";
+    sketchbookPath = (eightOne) ? home + separator + "Documents" + separator + "sketchbook"
+      : home + separator + "My Documents" + separator + "sketchbook";
+    processingRoot = home + separator + "processing-3.0";
   } else {
     sketchbookPath = home + separator + "sketchbook";
-    suggestion = home + separator + "processing-3.0";
+    processingRoot = home + separator + "processing-3.0";
   }
   rectColor = color(140);
   rectColor2 = color(140);
@@ -49,33 +50,34 @@ void setup() {
   rectX = rectWidth + 20;
   rectX2 = rectWidth + 150;
   rectX3 = rectWidth + 300;
-  rectY = height * 0.8 - rectHeight / 4;
+  rectY = height * 0.8f - rectHeight / 4;
   enter = new Button(rectX2, rectY, rectWidth, rectHeight, "enter");
   nojruby = new Button(rectX, rectY, rectWidth, rectHeight, "nojruby");
-  check = new Button(rectX3, rectY, rectWidth, rectHeight, "check");
+  winver = new Button(rectX3, rectY, rectWidth, rectHeight, "Win 8.1+");
 }
+
 
 void draw() {
   background(200);
   fill(0, 0, 200);
-  text("Suggestion:", 35, 28);
-  text(suggestion, 35, 56);
+  text(suggestion, 35, 28);
   textFont(font, 18);
   fill(255, 0, 0);
   // this adds a blinking cursor after your text, at the expense of redrawing everything every frame
-  text(processingRoot + (frameCount / 10 % 2 == 0 ? "_" : ""), 35, 100);
+  text(processingRoot + (frameCount / 10 % 2 == 0 ? "_" : ""), 35, 56);
   fill(0, 0, 200);
   text("Select nojruby to use jruby-complete by default", 35, 140);
   update(mouseX, mouseY);
+  //background(200);
 
   if (acceptOver) {
     enter.draw(rectHighlight);
     nojruby.draw(rectHighlight2);
-    check.draw(rectHighlight3);
+    winver.draw(rectHighlight3);
   } else {
     enter.draw(rectColor);
     nojruby.draw(rectColor2);
-    check.draw(rectColor3);
+    winver.draw(rectColor3);
   }
 }
 
@@ -86,22 +88,29 @@ void writeRoot() {
   File file = new File(folder);
   if (!file.exists()) {
     if (file.mkdir()) {
-      System.out.println("Directory is created!");
+      System.out.println(String.format("Created directory: %s", folder));
     } else {
-      System.out.println("Failed to create directory!");
+      System.out.println(String.format("Failed to create: %s", folder));
     }
   }
   String config = folder + separator + "config.yml";
   File yaml = new File(config);
-
   if (!yaml.exists()) {
-    PrintWriter writer = createWriter(config);
-    writer.println(String.format("PROCESSING_ROOT: %s", processingRoot));
-    writer.println(String.format("JRUBY: %s", jruby));
-    writer.println(String.format("sketchbook_path: %s", sketchbookPath));
-    processingRoot = done;
+    try {
+      PrintWriter writer = new PrintWriter(config, "UTF-8");
+      writer.println(String.format("PROCESSING_ROOT: %s", processingRoot));
+      writer.println(String.format("JRUBY: %s", jruby));
+      writer.println(String.format("sketchbook_path: %s", sketchbookPath));
+      writer.close();
+    } 
+    catch (FileNotFoundException ex) {
+    }
+    catch (UnsupportedEncodingException ex) {
+    }
   }
+  processingRoot = done;
 }
+
 
 void keyReleased() {
   if (key != CODED) {
@@ -128,7 +137,6 @@ void update(float x, float y) {
 }
 
 
-
 void mouseClicked() {
   update(mouseX, mouseY);
   if (acceptOver) {
@@ -139,15 +147,14 @@ void mouseClicked() {
     rectColor2 = selectedColor2;
     rectHighlight2 = selectedColor2;
     jruby = "false";
-  } else if (!configCheck) {
+  } else if (!eightOne) {
     rectColor3 = selectedColor3;
     rectHighlight3 = selectedColor3;
-    configCheck = true;
+    eightOne = true;
   }
 }
 
 class Button {
-
   float x, y, w, h;
   String text;
 
