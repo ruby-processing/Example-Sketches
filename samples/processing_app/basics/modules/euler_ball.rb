@@ -14,12 +14,12 @@ class EulerBall
   include Processing::Proxy, Runner
   attr_reader :pos, :spd, :radius, :bounds_x, :bounds_y
 
-  def initialize(position:, speed:, radius:)
+  def initialize(position, speed, radius)
     @pos = position
     @spd = speed
     @radius = radius
-    @bounds_x = Bounds.new(lower: radius, upper: width - radius)
-    @bounds_y = Bounds.new(lower: radius, upper: height - radius)
+    @bounds_x = Bounds.new(radius, $app.width - radius)
+    @bounds_y = Bounds.new(radius, $app.height - radius)
   end
 
   def move
@@ -42,7 +42,7 @@ end
 class Bounds
   include Processing::MathTool
   attr_reader :low, :high, :inside
-  def initialize(lower:, upper:)
+  def initialize(lower, upper)
     @low = lower
     @high = upper
     @inside = true
