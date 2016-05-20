@@ -33,10 +33,10 @@ void setup() {
   } else if (OS.contains("windows")) {
     sketchbookPath = (eightOne) ? home + separator + "Documents" + separator + "sketchbook"
       : home + separator + "My Documents" + separator + "sketchbook";
-    processingRoot = home + separator + "processing-3.0";
+    processingRoot = home + separator + "processing-3.1.1";
   } else {
     sketchbookPath = home + separator + "sketchbook";
-    processingRoot = home + separator + "processing-3.0";
+    processingRoot = home + separator + "processing-3.1.1";
   }
   rectColor = color(140);
   rectColor2 = color(140);
