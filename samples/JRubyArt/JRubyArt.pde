@@ -18,7 +18,7 @@ boolean acceptOver = false;
 boolean noJruby = false;
 boolean selected = false;
 boolean eightOne = false;
-String jruby = "true";
+String jruby = "\"true\"";
 
 void setup() {
   size(600, 200);
@@ -35,8 +35,8 @@ void setup() {
       : home + separator + "My Documents" + separator + "sketchbook";
     processingRoot = home + separator + "processing-3.1.1";
   } else {
-    sketchbookPath = home + separator + "sketchbook";
-    processingRoot = home + separator + "processing-3.1.1";
+    sketchbookPath = "\"" + home + separator + "sketchbook" + "\"";
+    processingRoot = "\"" + home + separator + "processing-3.1.1" + "\"";
   }
   rectColor = color(140);
   rectColor2 = color(140);
