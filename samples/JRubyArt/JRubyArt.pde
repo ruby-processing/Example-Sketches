@@ -18,7 +18,7 @@ boolean acceptOver = false;
 boolean noJruby = false;
 boolean selected = false;
 boolean eightOne = false;
-String jruby = "\"true\"";
+String jruby = "true";
 
 void setup() {
   size(600, 200);
@@ -67,7 +67,7 @@ void draw() {
   text(processingRoot + (frameCount / 10 % 2 == 0 ? "_" : ""), 35, 56);
   fill(0, 0, 200);
   text("Select nojruby to use jruby-complete by default", 35, 140);
-  update(mouseX, mouseY);
+  update();
   //background(200);
 
   if (acceptOver) {
@@ -98,16 +98,20 @@ void writeRoot() {
   if (!yaml.exists()) {
     try {
       PrintWriter writer = new PrintWriter(config, "UTF-8");
-      writer.println(String.format("--- # config.yml"));
+      writer.println("--- # config.yml");
       writer.println(String.format("PROCESSING_ROOT: %s", processingRoot));
-      writer.println(String.format("JRUBY: %s", jruby));
+      writer.println(String.format("JRUBY: %s # set to false to use jruby-complete", jruby));
       writer.println(String.format("sketchbook_path: %s", sketchbookPath));
+      writer.println("template: bare # class or emacs");
+      writer.println("java_args: # global jvm option, overridden by data/java_args.txt");
       writer.close();
     } 
     catch (FileNotFoundException ex) {
     }
     catch (UnsupportedEncodingException ex) {
     }
+  } else { 
+    System.out.println("Config exists not overwriting!!!");
   }
   processingRoot = done;
 }
@@ -132,14 +136,14 @@ void keyReleased() {
   }
 }
 
-void update(float x, float y) {
+void update() {
   acceptOver = enter.overRect();
   noJruby = nojruby.overRect();
 }
 
 
 void mouseClicked() {
-  update(mouseX, mouseY);
+  update();
   if (acceptOver) {
     rectColor = selectedColor;
     rectHighlight = selectedColor;
