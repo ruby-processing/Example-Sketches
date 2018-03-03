@@ -1,5 +1,6 @@
-Example-Sketches
+Example-Sketches for processing-2.2.1
 ================
+This repo is essentially obsolete since [JRubyArt][jra] that supports processing-3.3.6 see [JRubyArt-examples][examples]
 
 Many of the vanilla processing example sketches have been translated to ruby-processing, and they are mainly written as 'bare' sketches (ie not class wrapped) in keeping with the original processing.  At runtime these sketches the get wrapped into a Sketch class. Should you prefer you can still write class wrapped sketches, these will work equally well with ruby-processing. Certain sketches must be run with JRuby-Complete (mainly `load_image` and `shader` sketches), this is a [java permissions thing with jruby][]. You should also checkout the [Nature of Code Examples in ruby][] and for the beginner [Learning Processing with Ruby][] for even more examples.
 Includes autorun Rakefiles, in a console cd outer directory and 'rake' to run all autorun examples or eg 'rake shaders' to just run the shader examples. 
@@ -33,6 +34,8 @@ Includes autorun Rakefiles, in a console cd outer directory and 'rake' to run al
 ### User contributions are most welcome
 [Contributions][] add your [own][]
 
+[jra]:https://github.com/ruby-processing/JRubyArt
+[examples]:https://github.com/ruby-processing/JRubyArt-examples
 [Learning Processing with Ruby]:https://github.com/ruby-processing/learning-processing-with-ruby
 [Nature of Code Examples in ruby]:https://github.com/ruby-processing/The-Nature-of-Code-Examples-in-Ruby
 [Contributions]:https://github.com/ruby-processing/Example-Sketches/tree/master/samples/contributed
